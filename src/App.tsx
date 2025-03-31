@@ -1,11 +1,11 @@
 import './App.css'
+import { Backlog } from './components/screens/Backlog'
 
 function App() {
 
   return (
-    <>
-      <h1>ToDo List</h1>
-    </>
+      <Backlog />
+    
   )
 }
 
