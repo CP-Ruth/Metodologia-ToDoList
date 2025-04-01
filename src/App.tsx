@@ -1,10 +1,10 @@
 import './App.css'
-import { Backlog } from './components/screens/Backlog'
+import { BacklogView } from './components/screens/BacklogView/BacklogView'
 
 function App() {
 
   return (
-      <Backlog />
+      <BacklogView />
     
   )
 }
