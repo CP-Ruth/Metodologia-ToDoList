@@ -20,7 +20,7 @@ export const storeBacklogTareasSlice = create<IBacklogTareasSlice>((set) => ({
         set((state) => ({ backlogTareas: [...state.backlogTareas, newTarea] }));
     },
     
-    //Editaruna tarea
+    //Edita runa tarea
     editTareaDelBacklog: (updatedTarea) => {
         set((state) => ({
             backlogTareas: state.backlogTareas.map((tarea) => tarea.id === updatedTarea.id ? updatedTarea : tarea)

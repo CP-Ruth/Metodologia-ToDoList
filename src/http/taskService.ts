@@ -1,6 +1,5 @@
 import axios from "axios";
 import { IBacklog, ITarea } from "../types/ITarea";
-import { ISpringLista } from "../types/ISpring";
 
 const API_URL = "http://localhost:3000";
 
@@ -47,14 +46,3 @@ export const deleteTareaDelBacklogApi = async (taskId: string) => {
   }
 };
 
-
-
-/*-----------------------------------------------------------------*/
-export const getSpringsLista = async () => {
-  try {
-    const response = await axios.get<ISpringLista>(`${API_URL}/sprintList`);
-    return response.data.springs; // Accede al array de prings
-  } catch (error) {
-    console.error("Error al obtener los springs:", error);
-  }
-};

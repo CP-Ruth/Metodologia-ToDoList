@@ -33,7 +33,7 @@ export const useTareas = () => {
 
      const modificarTareaDelBacklog = async (tarea: ITarea) => {
           try {
-               const editarTarea = await editTareaDelBacklogApi(tarea.id, tarea);
+               const editarTarea = await editTareaDelBacklogApi(tarea.id!, tarea);
                if (editarTarea) { editTareaDelBacklog(tarea) }
           } catch (error) {
                console.error('Error al editar tarea del backlog:', error);
@@ -49,7 +49,6 @@ export const useTareas = () => {
           }
 
      };
-
 
      return {
           backlogTareas,

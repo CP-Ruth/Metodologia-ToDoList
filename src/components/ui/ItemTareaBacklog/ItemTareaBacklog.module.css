@@ -1,5 +1,40 @@
 .ContainerItemTareaBacklog{
-    background-color: aqua;
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 80vw;
+    height: 6vh;
+    padding: 0.4rem;
+    background-color: rgba(206, 205, 170, 0.35);
+    border-radius: 10px;
+    margin: 0.4rem;
+}
+.buttonsAndSelect{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;  
+}
+.buttonsAndSelect button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    cursor: pointer; 
+}
+.buttonsAndSelect select{
+    cursor: pointer; 
+    padding: 0.2rem;
+    border-color: #85C86D;
+    color: #85C86D;
+}
+.buttonsAndSelect
+.sendSpring{
+    width: 5vw;
+    height: 4vh;
+    border-radius: 0%;
+    background-color: #85C86D;
+    color: white;
+    border: none;
 }

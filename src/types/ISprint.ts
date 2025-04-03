@@ -1,13 +1,13 @@
 import { ITarea } from "./ITarea"
 
-export interface ISpring{
+export interface ISprint{
     id:string
-    dechaInicio:string
+    fechaInicio:string
     fechaCierre:string
     nombre:string
     tareas: ITarea[]
 }
 
-export interface ISpringLista{
-    springs: ISpring[]
+export interface ISprintLista{
+    sprints: ISprint[]
 }

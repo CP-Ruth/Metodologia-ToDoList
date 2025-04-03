@@ -2,7 +2,7 @@ import styles from './Navegacion.module.css';
 import { FaRegEdit } from "react-icons/fa";
 
 import { MdOutlinePlaylistAdd } from "react-icons/md";
-import { ListSprings } from '../ListSprint/ListSprint';
+import { ListSprint } from '../ListSprint/ListSprint';
 
 
 export const Navegacion = () => {
@@ -15,7 +15,7 @@ export const Navegacion = () => {
                 <button className={styles.buttonAddSpring}><MdOutlinePlaylistAdd /></button>
                 </div>
                 <div>
-                    <ListSprings />
+                    <ListSprint />
                 </div>
             </div>
         </div>
