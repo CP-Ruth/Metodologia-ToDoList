@@ -1,0 +1,47 @@
+.listSpringsContainer {
+    width: 30vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1rem;
+    border-right: 2px solid rgba(202, 131, 50, 0.5);
+}
+.containerTitleButton{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem;
+}
+.listSpringsContainer h4 {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.springItem {
+    width: 90%;
+    padding: 10px;
+    background-color: rgba(202, 131, 50, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.buttonAddSpring{
+    all: unset;
+    width: 4.5vw;
+    height: 4.5vh;
+    border-radius: 50%;
+    background-color: rgba(202, 131, 50, 0.5);
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.buttonAddSpring:hover{
+    background-color: rgba(202, 131, 50);
+    cursor: pointer;
+}

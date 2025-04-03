@@ -1,0 +1,64 @@
+.containerPrincipal{
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    height: 100vh;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+.tarea{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    padding: 0.6rem;
+}
+.titleCardList{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.titleCardList button{
+    background-color: rgba(202, 131, 50, 0.5) ;
+    border: none;
+    width: 15vw;
+    height:4vh;
+    border-radius: 10px;
+    color: white;
+    font-size:1rem;
+}
+.titleCardList button:hover{
+    background-color: rgba(202, 131, 50);
+    cursor: pointer; 
+}
+.containerTareas{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem;
+    background-color: rgba(202, 131, 50, 0.1);
+    border-radius: 10px;
+}
+.buttonsAndSelect{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; 
+    
+}
+.buttonsAndSelect button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3vw;
+    height: 3vh;
+    border-radius: 50%;
+    cursor: pointer; 
+}
+
+.buttonsAndSelect button:hover{
+    cursor: pointer; 
+}
+.buttonsAndSelect select:hover{
+    cursor: pointer; 
+}
