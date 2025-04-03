@@ -14,6 +14,8 @@ export const ListTareasBacklog = () => {
 
     return (
         <section>
+            <h2>Taras del BAcklog</h2>
+            //Falta botón
             <div>
                 {backlogTareas.length > 0 ? (
                     backlogTareas.map((el) => <ItemTareaBacklog tarea={el} />)

@@ -2,7 +2,7 @@ import styles from './Navegacion.module.css';
 import { FaRegEdit } from "react-icons/fa";
 
 import { MdOutlinePlaylistAdd } from "react-icons/md";
-import { ListSprings } from '../ListSprings/ListSprings';
+import { ListSprings } from '../ListSprint/ListSprint';
 
 
 export const Navegacion = () => {

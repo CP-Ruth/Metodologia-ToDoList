@@ -12,7 +12,7 @@ export const ItemTareaBacklog: FC<ItemTarea> = ({ tarea/*, children*/ }) => {
         <div className={style.ContainerItemTareaBacklog}>
             <div>
                 <h4>{tarea.titulo}</h4>
-                <p>Fecha limute:{tarea.fechaLimite}</p>
+                <p>Fecha límite:{tarea.fechaLimite}</p>
             </div>
             
             <div>
