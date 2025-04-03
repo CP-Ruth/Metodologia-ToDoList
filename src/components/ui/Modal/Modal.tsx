@@ -6,7 +6,7 @@ export const Modal = () => {
     return (
         <div className={styles.containerPrincipalModal}>
             <div className={styles.contentPopUp}>
-                <div>
+                <div className={styles.containerTitle}>
                     <h3>Editar/Crear tarea</h3>
                 </div>
             <Form className={styles.containerForm}>
@@ -19,11 +19,7 @@ export const Modal = () => {
                 <Form.Group controlId="date">
                     <Form.Control type="date" name="date" />
                 </Form.Group>
-                <Form.Select>
-                    <option>Asignar a un spring</option>
-                    <option value="1">Spring1</option>
-                    <option value="2">Spring2</option>
-                </Form.Select>
+            
             </Form>
             <div className={styles.buttons}>
                 <Button variant="secondary" className={styles.buttonConfirmar}>

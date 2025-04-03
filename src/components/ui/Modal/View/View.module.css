@@ -59,25 +59,3 @@
     border-radius: 0.3rem;
     font-size: 1rem;
 }
-.buttons{
-    display: flex;
-    width: 90%;
-    justify-content: space-around;
-    
-}
-.buttonCancelar{
-    background-color: rgb(206, 108, 108);
-    color: white;
-    border-color:  rgb(206, 108, 108);
-    width: 6rem;
-    height: 2rem;
-    font-size: 1rem;
-}
-.buttonConfirmar{
-    background-color: rgb(113, 208, 113);
-    color: white;
-    border-color: rgb(113, 208, 113);
-    width: 6rem;
-    height: 2rem;
-    font-size: 1rem;
-}
