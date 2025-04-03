@@ -2,12 +2,12 @@ import axios from "axios";
 import { IBacklog, ITarea } from "../types/ITarea";
 import { ISpringLista } from "../types/ISpring";
 
-const API_URL = "http://localhost:3000/";
+const API_URL = "http://localhost:3000";
 
-export const getBacklogTareas = async () => {
+export const getBacklogTareas = async (): Promise<ITarea[]> => {
   try {
-    const response = await axios.get<IBacklog>(`${API_URL}/backlog`);
-    return response.data.tareas; // Accede al array de tareas del backlog
+    const response = await axios.get<IBacklog>(`${API_URL}/backlog`); // Petición directa a /backlog
+    return response.data.tareas;// Accede al array de tareas del backlog
   } catch (error) {
     console.error("Error al obtener las tareas del backlog:", error);
     throw error;

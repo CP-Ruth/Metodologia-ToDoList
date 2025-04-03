@@ -7,6 +7,13 @@
                 "descripcion": "Descripcion tarea backlog",
                 "estado": "pendiente",
                 "fechaLimite": "2025-03-05"
+            },
+            {
+                "id": "dcec0ad4-31e0-4279-8ccf-sdgdfhgdf544d",
+                "titulo": "Tarea2 backlog",
+                "descripcion": "Descripcion tarea2 backlog",
+                "estado": "pendiente",
+                "fechaLimite": "2025-04-05"
             }
         ]
     },

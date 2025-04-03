@@ -10,7 +10,7 @@ export const useTareas = () => {
           addTareaAlBacklog,
           editTareaDelBacklog,
           deleteTareaDelBacklog,
-          moverTareaASpring,
+         // moverTareaASpring,
      } = storeBacklogTareasSlice(useShallow((state) => ({ ...state })));
 
      const getTodasTareasBacklog = async () => {

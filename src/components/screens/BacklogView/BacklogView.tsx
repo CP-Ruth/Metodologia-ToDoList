@@ -1,4 +1,5 @@
 import { Header } from "../../ui/Header/Header"
+import { ListTareasBacklog } from "../../ui/ListTareasBacklog/ListTareasBacklog";
 import { Navegacion } from "../../ui/Navegacion/Navegacion"
 import styles from "./BacklogView.module.css";
 
@@ -7,9 +8,7 @@ export const BacklogView = () => {
         <div className={styles.containerBacklog}>
             <Header />
             <Navegacion />
-            <div className={styles.containerBacklog_view} >
-                <p>hola</p>
-            </div>
+            <ListTareasBacklog />
         </div>
     )
 }
