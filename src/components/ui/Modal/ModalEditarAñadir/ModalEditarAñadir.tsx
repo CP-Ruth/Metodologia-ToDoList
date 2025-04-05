@@ -18,22 +18,24 @@ const initialStateTarea: ITarea = {
 
 export const ModalEditarAñadir: FC<IModalEditarAñadir> = ({ editTarea, handleCloseModal }) => {
 
-    const { crearTareaParaBacklog, modificarTareaDelBacklog } = useTareas();
+    const { crearTareaParaBacklog, modificarTareaDelBacklog, getTodasTareasBacklog } = useTareas();
 
     const [dataForm, setDataForm] = useState<ITarea>(initialStateTarea);
+
     const handlerDataForm = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setDataForm((state) => ({ ...state, [name]: value }))
     };
 
-    const handlerSubmitData = (e: FormEvent) => {
+    const handlerSubmitData = async(e: FormEvent) => {
         e.preventDefault();
-        if (!("id" in dataForm)) {
-            crearTareaParaBacklog({ ...dataForm, id: new Date().toDateString() });
+        if (!(dataForm.id)) { // Si no hay id, es una nueva tarea
+            // Generar un nuevo ID único para la tarea 
+            await crearTareaParaBacklog({ ...dataForm, id: new Date().toISOString() });
         } else {
-            modificarTareaDelBacklog(dataForm);
+            await modificarTareaDelBacklog(dataForm);
         }
-
+        await getTodasTareasBacklog();
         handleCloseModal();
     }
     useEffect(() => {

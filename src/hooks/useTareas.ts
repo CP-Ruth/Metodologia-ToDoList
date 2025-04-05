@@ -25,7 +25,7 @@ export const useTareas = () => {
      const crearTareaParaBacklog = async (newTarea: ITarea) => {
           try {
                const añadirTarea = await addTareaAlBacklogApi(newTarea);
-               if (añadirTarea) { addTareaAlBacklog(newTarea) }
+               if (añadirTarea) { addTareaAlBacklog(añadirTarea) }
           } catch (error) {
                console.error('Error al agregar una tarea al backlog:', error);
           }
@@ -34,7 +34,7 @@ export const useTareas = () => {
      const modificarTareaDelBacklog = async (tarea: ITarea) => {
           try {
                const editarTarea = await editTareaDelBacklogApi(tarea.id!, tarea);
-               if (editarTarea) { editTareaDelBacklog(tarea) }
+               if (editarTarea) { editTareaDelBacklog(editarTarea) }
           } catch (error) {
                console.error('Error al editar tarea del backlog:', error);
           }

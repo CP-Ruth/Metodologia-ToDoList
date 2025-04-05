@@ -28,7 +28,7 @@ export const ListTareasBacklog = () => {
             <div className={styles.containerPrincipal}>
             <div className={styles.containerTitleAddTarea}>
                 <h2>Tareas del Backlog</h2>
-                <button onClick={()=> setOpenModalTarea(true)}>Crear tarea <MdOutlinePlaylistAdd /></button>
+                <button onClick={()=>{  setSelectedTarea(null); setOpenModalTarea(true); }}>Crear tarea <MdOutlinePlaylistAdd /></button>
             </div>
             <div className={styles.containerTareas}>
                 {backlogTareas.length > 0 ? (
