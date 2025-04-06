@@ -1,10 +1,13 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { ITarea } from "../../../../types/ITarea";
+import { ISprint } from "../../../../types/ISprint";
 import { useTareas } from "../../../../hooks/useTareas";
 import styles from "./ModalEditarAñadir.module.css";
+import { useSprints } from "../../../../hooks/useSprints";
 
-type IModalEditarAñadir = {
-    editTarea: ITarea | null;
+type ModalEditarAñadirProps = {
+    type: "tarea" | "sprint";
+    editData: ITarea | ISprint | null;
     handleCloseModal: () => void;
 };
 
@@ -13,73 +16,84 @@ const initialStateTarea: ITarea = {
     titulo: "",
     descripcion: "",
     fechaLimite: "",
-    estado: "pendiente"
+    estado: "pendiente",
 };
 
-export const ModalEditarAñadir: FC<IModalEditarAñadir> = ({ editTarea, handleCloseModal }) => {
+const initialStateSprint: ISprint = {
+    id: "",
+    nombre: "",
+    fechaInicio: "",
+    fechaCierre: "",
+    tareas: [],
+};
 
+export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData, handleCloseModal }) => {
     const { crearTareaParaBacklog, modificarTareaDelBacklog, getTodasTareasBacklog } = useTareas();
+    const { crearSprint, modificarSprint, getTodosLosSprint } = useSprints();
 
-    const [dataForm, setDataForm] = useState<ITarea>(initialStateTarea);
+    const [dataForm, setDataForm] = useState<ITarea | ISprint>(
+        type === "tarea" ? initialStateTarea : initialStateSprint
+    );
 
     const handlerDataForm = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setDataForm((state) => ({ ...state, [name]: value }))
+        setDataForm((state) => ({ ...state, [name]: value }));
     };
 
-    const handlerSubmitData = async(e: FormEvent) => {
+    const handlerSubmitData = async (e: FormEvent) => {
         e.preventDefault();
-        if (!(dataForm.id)) { // Si no hay id, es una nueva tarea
-            // Generar un nuevo ID único para la tarea 
-            await crearTareaParaBacklog({ ...dataForm, id: new Date().toISOString() });
-        } else {
-            await modificarTareaDelBacklog(dataForm);
+
+        if (type === "tarea") {
+            const tarea = dataForm as ITarea;
+            if (!tarea.id) {
+                await crearTareaParaBacklog({ ...tarea, id: new Date().toISOString() });
+            } else {
+                await modificarTareaDelBacklog(tarea);
+            }
+            await getTodasTareasBacklog();
+        } else if (type === "sprint") {
+            const sprint = dataForm as ISprint;
+            if (!sprint.id) {
+                await crearSprint({ ...sprint, id: new Date().toISOString(), tareas: [] });
+            } else {
+                await modificarSprint(sprint);
+            }
+            await getTodosLosSprint();
         }
-        await getTodasTareasBacklog();
+
         handleCloseModal();
-    }
+    };
+
     useEffect(() => {
-        if (editTarea) setDataForm(editTarea);
-        else setDataForm(initialStateTarea);
-    }, [editTarea])
+        if (editData) setDataForm(editData);
+        else setDataForm(type === "tarea" ? initialStateTarea : initialStateSprint);
+    }, [editData, type]);
 
     return (
         <div className={styles.containerModal}>
             <div className={styles.modal}>
-                <div>
-                    <h2>{editTarea ? "Editar " : "Añadir "}Tarea</h2>
-                </div>
-                <form onSubmit={handlerSubmitData}>
-                    <input
-                        type="text" required
-                        name="titulo"
-                        value={dataForm.titulo}
-                        placeholder="Título de la tarea"
-                        onChange={handlerDataForm}
-                    />
-                    <input
-                        type="text" required
-                        name="descripcion"
-                        value={dataForm.descripcion}
-                        placeholder="Describe la tarea"
-                        onChange={handlerDataForm}
-                    />
+                <h2>{editData ? "Editar" : "Añadir"} {type === "tarea" ? "Tarea" : "Sprint"}</h2>
 
+                <form onSubmit={handlerSubmitData}>
+                    {type === "tarea" ? (
+                        <>
+                            <input type="text" required name="titulo" value={(dataForm as ITarea).titulo} placeholder="Título de la tarea" onChange={handlerDataForm} />
+                            <input type="text" required name="descripcion" value={(dataForm as ITarea).descripcion} placeholder="Describe la tarea" onChange={handlerDataForm} />
+                            <input type="date" required name="fechaLimite" value={(dataForm as ITarea).fechaLimite} onChange={handlerDataForm} />
+                        </>
+                    ) : (
+                        <>
+                            <input type="text" required name="nombre" value={(dataForm as ISprint).nombre} placeholder="Nombre del sprint" onChange={handlerDataForm} />
+                            <input type="date" required name="fechaInicio" value={(dataForm as ISprint).fechaInicio} onChange={handlerDataForm} />
+                            <input type="date" required name="fechaCierre" value={(dataForm as ISprint).fechaCierre} onChange={handlerDataForm} />
+                        </>
+                    )}
                     <div>
-                        <input
-                            type="date" required
-                            name="fechaLimite"
-                            value={dataForm.fechaLimite}
-                            placeholder="Fecha Limite"
-                            onChange={handlerDataForm}
-                        />
-                    </div>
-                    <div>
-                        <button type="submit">{editTarea ? "Guardar" : "Crear"}</button>
+                        <button type="submit">{editData ? "Guardar" : "Crear"}</button>
                         <button onClick={handleCloseModal} type="button">Cancelar</button>
                     </div>
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};

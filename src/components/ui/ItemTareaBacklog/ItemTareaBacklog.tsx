@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { ITarea } from "../../../types/ITarea";
 import style from "./ItemTareaBacklog.module.css"
 import { IoArrowRedoOutline, IoEyeSharp } from "react-icons/io5";
@@ -10,7 +10,7 @@ interface ItemTarea {
 }
 
 export const ItemTareaBacklog: FC<ItemTarea> = ({ tarea, handleOpenModalEdit }) => {
-
+    const [openModalVer, setOpenModalVer] = useState(false);
     const { eliminarTareaDelBacklog } = useTareas();
     const eliminarTareaById = () => {
         eliminarTareaDelBacklog(tarea.id!)
@@ -19,6 +19,11 @@ export const ItemTareaBacklog: FC<ItemTarea> = ({ tarea, handleOpenModalEdit }) 
     const editarTarea = () => {
         handleOpenModalEdit(tarea);
     }
+
+    const verTarea = () => {
+        setOpenModalVer(true)
+    }
+
     return (
         <div className={style.ContainerItemTareaBacklog}>
             <div>
@@ -32,11 +37,12 @@ export const ItemTareaBacklog: FC<ItemTarea> = ({ tarea, handleOpenModalEdit }) 
                     <option>Seleccionar spring</option>
                 </select>
                 <button className={style.sendSpring}>Enviar <IoArrowRedoOutline /></button>
-                <button style={{ backgroundColor: "#6BB0FF", color: "white", border: "none" }}><IoEyeSharp /></button>
+                <button onClick={verTarea} style={{ backgroundColor: "#6BB0FF", color: "white", border: "none" }}><IoEyeSharp /></button>
                 <button onClick={editarTarea} style={{ backgroundColor: "#85C86D", color: "white", border: "none" }}><FaPen /></button>
                 <button onClick={eliminarTareaById} style={{ backgroundColor: "#FF6B6B", color: "white", border: "none" }}><FaTrashAlt /></button>
             </div>
         </div>
+        
     )
 
 }

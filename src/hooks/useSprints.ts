@@ -33,7 +33,7 @@ export const useSprints = () => {
     const modificarSprint = async (sprint: ISprint) => {
         try {
             const editarSprint = await editSprintgApi(sprint.id, sprint);
-            if(editarSprint){ editSprint(sprint)}
+            if(editarSprint){ editSprint(editarSprint)}
         } catch (error) {
             console.error('Error al editar el sprint:', error);
         }

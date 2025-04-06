@@ -5,15 +5,19 @@ export interface IBacklogTareasSlice {
     backlogTareas: ITarea[];
     activeTarea: ITarea | null;
     addTareaAlBacklog: (newTarea: ITarea) => void;
+    setAllTarea: (allTarea: ITarea[]) => void;
     editTareaDelBacklog: (updatedTarea: ITarea) => void;
     deleteTareaDelBacklog: (idTarea: string) => void;
-    setAllTarea: (allTarea: ITarea[]) => void;
     moverTareaASpring: (idTarea: string, idSpring: string) => void;
 }
 
 export const storeBacklogTareasSlice = create<IBacklogTareasSlice>((set) => ({
     backlogTareas: [],
     activeTarea: null,
+    
+    setAllTarea: (allTarea) => {
+        set({ backlogTareas: allTarea });
+    },
 
     //Añadir una tarea 
     addTareaAlBacklog: (newTarea) =>{
@@ -34,10 +38,6 @@ export const storeBacklogTareasSlice = create<IBacklogTareasSlice>((set) => ({
         }))
         },
 
-    setAllTarea: (allTarea) => {
-        set({ backlogTareas: allTarea });
-
-    },
 
     moverTareaASpring: (idTarea, idSpring) => {
         set((state) => ({

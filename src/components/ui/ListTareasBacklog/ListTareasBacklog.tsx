@@ -9,12 +9,12 @@ import { ModalEditarAñadir } from "../Modal/ModalEditarAñadir/ModalEditarAñad
 export const ListTareasBacklog = () => {
 
     const { backlogTareas, getTodasTareasBacklog } = useTareas();
+    const [openModalTarea, setOpenModalTarea] = useState(false);
+    const [selectedTarea, setSelectedTarea] = useState<ITarea | null>(null);
+
     useEffect(() => {
         getTodasTareasBacklog();
     }, []);
-
-    const [openModalTarea, setOpenModalTarea] = useState(false);
-    const [selectedTarea, setSelectedTarea] = useState<ITarea | null>(null);
 
     const handleOpenModalEdit =(tarea: ITarea)=>{
         setSelectedTarea(tarea);
@@ -38,7 +38,7 @@ export const ListTareasBacklog = () => {
                 )}
             </div>
             </div>
-            {openModalTarea&& <ModalEditarAñadir editTarea={selectedTarea} handleCloseModal={handleCloseModal} />}
+            {openModalTarea&& <ModalEditarAñadir type="tarea" editData={selectedTarea} handleCloseModal={handleCloseModal} />}
         </section>
     )
 }
