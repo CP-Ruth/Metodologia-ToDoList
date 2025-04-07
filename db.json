@@ -6,6 +6,13 @@
       "descripcion": "Descripcion tarea2 backlog",
       "estado": "pendiente",
       "fechaLimite": "2025-04-12"
+    },
+    {
+      "id": "2025-04-07T12:59:42.183Z",
+      "titulo": "Tarea 3",
+      "descripcion": "asdfghj",
+      "fechaLimite": "2025-04-30",
+      "estado": "pendiente"
     }
   ],
   "sprintList": [
