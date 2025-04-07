@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { ITarea } from "../../../types/ITarea";
 import style from "./ItemTareaBacklog.module.css"
 import { IoArrowRedoOutline, IoEyeSharp } from "react-icons/io5";
@@ -6,23 +6,25 @@ import { FaPen, FaTrashAlt } from "react-icons/fa";
 import { useTareas } from "../../../hooks/useTareas";
 interface ItemTarea {
     tarea: ITarea;
+    handleOpenModalVer: (tarea: ITarea) => void;
     handleOpenModalEdit: (tarea: ITarea) => void;
+    
 }
 
-export const ItemTareaBacklog: FC<ItemTarea> = ({ tarea, handleOpenModalEdit }) => {
-    const [openModalVer, setOpenModalVer] = useState(false);
+export const ItemTareaBacklog: FC<ItemTarea> = ({ tarea, handleOpenModalVer, handleOpenModalEdit }) => {
+    
     const { eliminarTareaDelBacklog } = useTareas();
     const eliminarTareaById = () => {
         eliminarTareaDelBacklog(tarea.id!)
     };
+    
+    const verTarea = () => {
+        handleOpenModalVer(tarea)
+    };
 
     const editarTarea = () => {
         handleOpenModalEdit(tarea);
-    }
-
-    const verTarea = () => {
-        setOpenModalVer(true)
-    }
+    };
 
     return (
         <div className={style.ContainerItemTareaBacklog}>

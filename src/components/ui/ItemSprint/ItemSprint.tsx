@@ -7,21 +7,24 @@ import { useSprints } from "../../../hooks/useSprints";
 
 interface ItemSprint {
     sprint: ISprint;
+    handleOpenModalVer: (sprint: ISprint) => void;
     handleOpenModalEdit: (sprint: ISprint) => void;
 }
 
-export const ItemSprint: FC<ItemSprint> = ({ sprint,handleOpenModalEdit }) => {
-    
-    const{ eliminarSprint } = useSprints(); 
+export const ItemSprint: FC<ItemSprint> = ({ sprint, handleOpenModalVer, handleOpenModalEdit }) => {
 
-    
-    
+    const { eliminarSprint } = useSprints();
+
+    const verSprint = () => {
+        handleOpenModalVer(sprint);
+    };
+
     const editarSprint = () => {
         handleOpenModalEdit(sprint);
     };
 
-    const verSprint = () => {
-        // Logic to view sprint details
+    const eliminarSprintt = (id: string) => {
+        eliminarSprint(id);
     };
 
     return (
@@ -34,9 +37,9 @@ export const ItemSprint: FC<ItemSprint> = ({ sprint,handleOpenModalEdit }) => {
                 </div>
             </div>
             <div className={styles.ItemSprint__buttons}>
-                    <button style={{backgroundColor:"#6BB0FF", color: "white", border: "none"}}><IoEyeSharp /></button>
-                    <button onClick={editarSprint} style={{backgroundColor:"#85C86D", color: "white", border: "none"}}><FaPen /></button>
-                    <button onClick={() => {eliminarSprint(sprint.id!);}} style={{backgroundColor:"#FF6B6B", color: "white", border: "none"}}><FaTrashAlt /></button>
+                <button onClick={verSprint} style={{ backgroundColor: "#6BB0FF", color: "white", border: "none" }}><IoEyeSharp /></button>
+                <button onClick={editarSprint} style={{ backgroundColor: "#85C86D", color: "white", border: "none" }}><FaPen /></button>
+                <button onClick={() => { eliminarSprintt(sprint.id!); }} style={{ backgroundColor: "#FF6B6B", color: "white", border: "none" }}><FaTrashAlt /></button>
             </div>
         </div>
     )
