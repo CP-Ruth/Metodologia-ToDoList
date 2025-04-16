@@ -9,6 +9,7 @@ export interface ISprintListaSlice {
     addSprint: (newSprint: ISprint) => void;
     editSprint: (updatedSprint: ISprint) => void;
     deleteSprint: (idSprint: string) => void;
+    setAllTareasSprint:(allTareasSprint: ISprint) => void;
 }
 
 export const storeSprintListaSlice = create<ISprintListaSlice>((set)=>({
@@ -35,8 +36,18 @@ export const storeSprintListaSlice = create<ISprintListaSlice>((set)=>({
     deleteSprint: async (idSprint) =>{
         set((state)=>({
             listaSprints: state.listaSprints.filter((sprint)=> sprint.id!==idSprint)
-        }
-        ))
-    }
+        }));
+    },
 
+    //Tareasd el sprint
+    setAllTareasSprint: (allTareasSprint) => {
+        set((state) => ({
+            listaSprints: state.listaSprints.map((sprint) => {
+                if (sprint.id === allTareasSprint.id) {
+                    return { ...sprint, tareas: allTareasSprint.tareas };
+                }
+                return sprint;
+            }),
+        }));
+    }
 }))

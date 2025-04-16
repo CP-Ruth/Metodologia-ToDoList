@@ -34,10 +34,6 @@ export const ItemTareaBacklog: FC<ItemTarea> = ({ tarea, handleOpenModalVer, han
             </div>
 
             <div className={style.buttonsAndSelect}>
-
-                <select>
-                    <option>Seleccionar spring</option>
-                </select>
                 <button className={style.sendSpring}>Enviar <IoArrowRedoOutline /></button>
                 <button onClick={verTarea} style={{ backgroundColor: "#6BB0FF", color: "white", border: "none" }}><IoEyeSharp /></button>
                 <button onClick={editarTarea} style={{ backgroundColor: "#85C86D", color: "white", border: "none" }}><FaPen /></button>

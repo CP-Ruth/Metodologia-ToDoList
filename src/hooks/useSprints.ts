@@ -10,6 +10,7 @@ export const useSprints = () => {
         addSprint,
         editSprint,
         deleteSprint,
+        //setAllTareasSprint
     } = storeSprintListaSlice(useShallow((state) => ({ ...state })));
 
     const getTodosLosSprint = async () => {
@@ -48,11 +49,20 @@ export const useSprints = () => {
         }
     };
 
+    const getSprintById = (id: string) => {
+        const sprint = listaSprints.find((sprint) => sprint.id === id); 
+        if (!sprint) {
+            throw new Error(`Sprint con ID ${id} no encontrado.`);
+        }
+        return sprint;
+    }
+
     return {
         listaSprints,
         getTodosLosSprint,
         crearSprint,
         modificarSprint,
-        eliminarSprint
+        eliminarSprint,
+        getSprintById,
     }
 }

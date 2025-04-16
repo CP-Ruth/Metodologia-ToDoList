@@ -42,7 +42,6 @@ export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData
 
     const handlerSubmitData = async (e: FormEvent) => {
         e.preventDefault();
-
         if (type === "tarea") {
             const tarea = dataForm as ITarea;
             if (!tarea.id) {
@@ -60,21 +59,21 @@ export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData
             }
             await getTodosLosSprint();
         }
-
         handleCloseModal();
     };
-
     useEffect(() => {
         if (editData) setDataForm(editData);
         else setDataForm(type === "tarea" ? initialStateTarea : initialStateSprint);
     }, [editData, type]);
 
     return (
-        <div className={styles.containerModal}>
-            <div className={styles.modal}>
-                <h2>{editData ? "Editar" : "Añadir"} {type === "tarea" ? "Tarea" : "Sprint"}</h2>
+        <div className={styles.containerPrincipalModal}>
+            <div className={styles.contentPopUp}>
+                <div className={styles.containerTitle}>
+                <h2>{editData ? "Editar" : "Crear"} {type === "tarea" ? "Tarea" : "Sprint"}</h2>
+                </div>
 
-                <form onSubmit={handlerSubmitData}>
+                <form className={styles.containerForm} onSubmit={handlerSubmitData}>
                     {type === "tarea" ? (
                         <>
                             <input type="text" required name="titulo" value={(dataForm as ITarea).titulo} placeholder="Título de la tarea" onChange={handlerDataForm} />
@@ -88,12 +87,13 @@ export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData
                             <input type="date" required name="fechaCierre" value={(dataForm as ISprint).fechaCierre} onChange={handlerDataForm} />
                         </>
                     )}
-                    <div>
-                        <button type="submit">{editData ? "Guardar" : "Crear"}</button>
-                        <button onClick={handleCloseModal} type="button">Cancelar</button>
+                    <div className={styles.buttons}>
+                        <button className={styles.buttonConfirmar} type="submit">{editData ? "Guardar" : "Crear"}</button>
+                        <button className={styles.buttonCancelar} onClick={handleCloseModal} type="button">Cancelar</button>
                     </div>
                 </form>
+                </div>
             </div>
-        </div>
+        
     );
 };

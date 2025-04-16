@@ -2,6 +2,8 @@ import { FC } from "react";
 import { ITarea } from "../../../../types/ITarea";
 import { ISprint } from "../../../../types/ISprint";
 import styles from "./ModalVer.module.css";
+import { AiFillCloseSquare } from "react-icons/ai"
+
 
 type ModalVerProps = {
   dataView: ITarea | ISprint | null;
@@ -13,6 +15,7 @@ const esTarea = (item: ITarea | ISprint): item is ITarea => {
   return (item as ITarea).estado !== undefined;
 };
 
+
 export const ModalVer: FC<ModalVerProps> = ({ dataView, handleCloseModal }) => {
   if (!dataView) return null;
 
@@ -21,12 +24,14 @@ export const ModalVer: FC<ModalVerProps> = ({ dataView, handleCloseModal }) => {
       <div className={styles.modal}>
         {esTarea(dataView) ? (
           <>
+            <div className={styles.containerTitle}>
             <h2>Detalles de la Tarea</h2>
+            <button onClick={handleCloseModal}><AiFillCloseSquare /></button>
+            </div>
             <div className={styles.content}>
               <h3>{dataView.titulo}</h3>
-              <p><strong>Descripción:</strong> {dataView.descripcion}</p>
-              <p><strong>Fecha Límite:</strong> {dataView.fechaLimite}</p>
-              <p><strong>Estado:</strong> {dataView.estado}</p>
+              <p> {dataView.descripcion}</p>
+              <p>Fecha Límite: {dataView.fechaLimite}</p>
             </div>
           </>
         ) : (
@@ -45,7 +50,8 @@ export const ModalVer: FC<ModalVerProps> = ({ dataView, handleCloseModal }) => {
             </div>
           </>
         )}
-        <button onClick={handleCloseModal}>Cerrar</button>
+        
+
       </div>
     </div>
   );

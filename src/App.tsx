@@ -1,11 +1,10 @@
 import './App.css'
-import { BacklogView } from './components/screens/BacklogView/BacklogView'
+import { AppRouter } from './routes/AppRouter'
 
 function App() {
 
   return (
-      <BacklogView />
-    
+      <AppRouter></AppRouter>    
   )
 }
 

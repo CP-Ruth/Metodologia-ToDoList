@@ -1,5 +1,6 @@
 import axios from "axios";
-import { ISprint, ISprintLista } from "../types/ISprint";
+import { ISprint } from "../types/ISprint";
+import { ITarea } from "../types/ITarea";
 
 const API_URL = "http://localhost:3000/sprintList";
 
@@ -46,3 +47,24 @@ export const deleteSprintApi = async (sprintId: string) => {
         throw error;
     }
 };
+
+/**--------------------------------------------------------------------------------- */
+
+// Función para obtener las tareas de un sprint específico
+export const getTareasSprintApi = async (sprintId: string): Promise<ITarea[]> => {
+    try {
+        const response = await axios.get<ISprint>(`${API_URL}/${sprintId}`);
+        return response.data.tareas;
+    } catch (error) {
+        console.error(`Error al obtener las tareas del sprint (id: ${sprintId}):`, error);
+        throw error;
+    }
+};
+
+// Función para agregar una tarea a un sprint específico
+
+// Función para editar una tarea de un sprint específico    
+
+// Función para eliminar una tarea de un sprint específico
+
+// Función para editar el estado de una tarea de un sprint específico
