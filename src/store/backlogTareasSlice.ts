@@ -27,21 +27,21 @@ export const storeBacklogTareasSlice = create<IBacklogTareasSlice>((set) => ({
     //Edita runa tarea
     editTareaDelBacklog: (updatedTarea) => {
         set((state) => ({
-            backlogTareas: state.backlogTareas.map((tarea) => tarea.id === updatedTarea.id ? updatedTarea : tarea)
+            backlogTareas: state.backlogTareas.map((tarea) => tarea._id === updatedTarea._id ? updatedTarea : tarea)
         }));
     },
 
     //Eliminar tarea
     deleteTareaDelBacklog: async (idTarea) => {
         set((state) => ({
-            backlogTareas: state.backlogTareas.filter((tarea) => tarea.id !== idTarea)
+            backlogTareas: state.backlogTareas.filter((tarea) => tarea._id !== idTarea)
         }))
         },
 
 
     moverTareaASpring: (idTarea, idSpring) => {
         set((state) => ({
-            backlogTareas: state.backlogTareas.filter((tarea) => tarea.id !== idTarea),
+            backlogTareas: state.backlogTareas.filter((tarea) => tarea._id !== idTarea),
         }));
         console.log(`Tarea con ID ${idTarea} movida al sprint con ID ${idSpring}`);
     }

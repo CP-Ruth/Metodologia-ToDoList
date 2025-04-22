@@ -15,7 +15,7 @@ export const ItemTareaBacklog: FC<ItemTarea> = ({ tarea, handleOpenModalVer, han
     
     const { eliminarTareaDelBacklog } = useTareas();
     const eliminarTareaById = () => {
-        eliminarTareaDelBacklog(tarea.id!)
+        eliminarTareaDelBacklog(tarea._id!)
     };
     
     const verTarea = () => {

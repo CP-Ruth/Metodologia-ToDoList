@@ -4,6 +4,7 @@ import { ISprint } from "../../../../types/ISprint";
 import { useTareas } from "../../../../hooks/useTareas";
 import styles from "./ModalEditarAñadir.module.css";
 import { useSprints } from "../../../../hooks/useSprints";
+import Swal from "sweetalert2";
 
 type ModalEditarAñadirProps = {
     type: "tarea" | "sprint";
@@ -12,7 +13,7 @@ type ModalEditarAñadirProps = {
 };
 
 const initialStateTarea: ITarea = {
-    id: "",
+    _id: "",
     titulo: "",
     descripcion: "",
     fechaLimite: "",
@@ -42,25 +43,36 @@ export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData
 
     const handlerSubmitData = async (e: FormEvent) => {
         e.preventDefault();
-        if (type === "tarea") {
-            const tarea = dataForm as ITarea;
-            if (!tarea.id) {
-                await crearTareaParaBacklog({ ...tarea, id: new Date().toISOString() });
-            } else {
-                await modificarTareaDelBacklog(tarea);
+        try {
+            if (type === "tarea") {
+                const tarea = dataForm as ITarea;
+                if (!tarea._id) {
+                    await crearTareaParaBacklog(tarea);
+                    await Swal.fire("¡Creado!", "La tarea fue creada con éxito ✅", "success");
+                } else {
+                    await modificarTareaDelBacklog(tarea);
+                    await Swal.fire("¡Actualizado!", "La tarea fue actualizada correctamente ✏️", "success");
+                }
+                await getTodasTareasBacklog();
+            } else if (type === "sprint") {
+                const sprint = dataForm as ISprint;
+                if (!sprint.id) {
+                    await crearSprint({ ...sprint, id: new Date().toISOString(), tareas: [] });
+                    await Swal.fire("¡Sprint creado!", "El sprint fue creado correctamente ✅", "success");
+                } else {
+                    await modificarSprint(sprint);
+                    await Swal.fire("¡Sprint editado!", "El sprint fue actualizado ✏️", "success");
+                }
+                await getTodosLosSprint();
             }
-            await getTodasTareasBacklog();
-        } else if (type === "sprint") {
-            const sprint = dataForm as ISprint;
-            if (!sprint.id) {
-                await crearSprint({ ...sprint, id: new Date().toISOString(), tareas: [] });
-            } else {
-                await modificarSprint(sprint);
-            }
-            await getTodosLosSprint();
+            handleCloseModal();
+        } catch (error) {
+            console.error("Error al guardar:", error);
+            Swal.fire("Oops...", "Ocurrió un error 😥", "error");
         }
-        handleCloseModal();
     };
+
+
     useEffect(() => {
         if (editData) setDataForm(editData);
         else setDataForm(type === "tarea" ? initialStateTarea : initialStateSprint);
@@ -70,7 +82,7 @@ export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData
         <div className={styles.containerPrincipalModal}>
             <div className={styles.contentPopUp}>
                 <div className={styles.containerTitle}>
-                <h2>{editData ? "Editar" : "Crear"} {type === "tarea" ? "Tarea" : "Sprint"}</h2>
+                    <h2>{editData ? "Editar" : "Crear"} {type === "tarea" ? "Tarea" : "Sprint"}</h2>
                 </div>
 
                 <form className={styles.containerForm} onSubmit={handlerSubmitData}>
@@ -92,8 +104,8 @@ export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData
                         <button className={styles.buttonCancelar} onClick={handleCloseModal} type="button">Cancelar</button>
                     </div>
                 </form>
-                </div>
             </div>
-        
+        </div>
+
     );
 };

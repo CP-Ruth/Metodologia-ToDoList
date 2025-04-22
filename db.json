@@ -10,36 +10,6 @@
   ],
   "sprintList": [
     {
-      "id": "2025-04-07T23:55:21.275Z",
-      "nombre": "Sprint 1",
-      "descripcion": "Sprint de prueba",
-      "fechaInicio": "2025-04-01",
-      "fechaCierre": "2025-04-15",
-      "tareas": [
-        {
-          "id": "2025-04-07T23:55:21.dfh54",
-          "titulo": "Tarea 1",
-          "descripcion": "Descripción de la tarea 1",
-          "fechaLimite": "2025-04-10",
-          "estado": "pendiente"
-        },
-        {
-          "id": "2025-04-07T23:55:21.275Z",
-          "titulo": "Tarea 2",
-          "descripcion": "Descripción de la tarea 2",
-          "fechaLimite": "2025-04-12",
-          "estado": "en progreso"
-        },
-        {
-          "id": "2025-04-07T23:55:222.275Z",
-          "titulo": "Tarea 3",
-          "descripcion": "Descripción de la tarea 3",
-          "fechaLimite": "2025-04-14",
-          "estado": "completada"
-        }
-      ]
-    },
-    {
       "id": "2025-04-16T02:27:52.330Z",
       "nombre": "Sprint 2",
       "fechaInicio": "2025-04-19",
@@ -51,6 +21,13 @@
       "nombre": "Sprint 6",
       "fechaInicio": "2025-05-20",
       "fechaCierre": "2025-06-04",
+      "tareas": []
+    },
+    {
+      "id": "2025-04-16T12:33:42.605Z",
+      "nombre": "Sprint 5",
+      "fechaInicio": "2025-04-27",
+      "fechaCierre": "2025-08-29",
       "tareas": []
     }
   ]
