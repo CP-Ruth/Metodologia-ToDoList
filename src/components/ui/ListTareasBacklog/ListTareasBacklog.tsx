@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTareas } from "../../../hooks/useTareas"
-import { ItemTareaBacklog } from "../ItemTareaBacklog/ItemTareaBacklog";
+import { ItemTarea } from "../ItemTarea/ItemTarea";
 import { MdOutlinePlaylistAdd } from "react-icons/md";
 import styles from "./ListTareasBacklog.module.css"
 import { ITarea } from "../../../types/ITarea";
@@ -9,7 +9,7 @@ import { ModalVer } from "../Modal/ModalVer/ModalVer";
 
 export const ListTareasBacklog = () => {
 
-    const { backlogTareas, getTodasTareasBacklog } = useTareas();
+    const { backlogTareas, getTodasTareasBacklog, eliminarTareaDelBacklog } = useTareas();
     const [openModalVer, setOpenModalVer] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [selectedTarea, setSelectedTarea] = useState<ITarea | null>(null);
@@ -39,7 +39,7 @@ export const ListTareasBacklog = () => {
                 </div>
                 <div className={styles.containerTareas}>
                     {backlogTareas.length > 0 ? (
-                        backlogTareas.map((el) => <ItemTareaBacklog tarea={el} handleOpenModalEdit={handleOpenModalEdit} handleOpenModalVer={handleOpenModalVer} />)
+                        backlogTareas.map((el) => <ItemTarea tarea={el} editar={handleOpenModalEdit} ver={handleOpenModalVer}  eliminar={()=> eliminarTareaDelBacklog(el._id!)}/>)
                     ) : (
                         <h3>No hay tareas</h3>
                     )}

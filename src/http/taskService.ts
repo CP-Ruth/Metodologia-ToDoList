@@ -7,7 +7,6 @@ const API_URLT = "http://localhost:3000/tasks";
 export const getBacklogTareas = async (): Promise<ITarea[]> => {
   try {
     const response = await axios.get<IBacklog>(API_URLB); // Petición directa a /backlog
-    console.log(response.data.tareas)
     return response.data.tareas;// Accede al array de tareas del backlog
   } catch (error) {
     console.error("Error al obtener las tareas del backlog:", error);

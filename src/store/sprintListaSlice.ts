@@ -9,33 +9,33 @@ export interface ISprintListaSlice {
     addSprint: (newSprint: ISprint) => void;
     editSprint: (updatedSprint: ISprint) => void;
     deleteSprint: (idSprint: string) => void;
-    setAllTareasSprint:(allTareasSprint: ISprint) => void;
+    setAllTareasSprint: (allTareasSprint: ISprint) => void;
 }
 
-export const storeSprintListaSlice = create<ISprintListaSlice>((set)=>({
+export const storeSprintListaSlice = create<ISprintListaSlice>((set) => ({
     listaSprints: [],
     activeSprint: null,
 
     setAllSprint: (allSprint) => {
-        set({listaSprints: allSprint})
+        set({ listaSprints: allSprint })
     },
 
     //Añadir un sprint
     addSprint: (newSprint) => {
-        set((state)=>({listaSprints: [...state.listaSprints, newSprint]}))
+        set((state) => ({ listaSprints: [...state.listaSprints, newSprint] }))
     },
 
     //Editar un sprint
     editSprint: (updatedSprint) => {
         set((state) => ({
-            listaSprints: state.listaSprints.map((sprint) => sprint.id === updatedSprint.id ? updatedSprint : sprint)
+            listaSprints: state.listaSprints.map((sprint) => sprint._id === updatedSprint._id ? updatedSprint : sprint)
         }));
     },
 
     //Eliminar un sprint
-    deleteSprint: async (idSprint) =>{
-        set((state)=>({
-            listaSprints: state.listaSprints.filter((sprint)=> sprint.id!==idSprint)
+    deleteSprint: (idSprint) => {
+        set((state) => ({
+            listaSprints: state.listaSprints.filter((sprint) => sprint._id !== idSprint)
         }));
     },
 
@@ -43,7 +43,7 @@ export const storeSprintListaSlice = create<ISprintListaSlice>((set)=>({
     setAllTareasSprint: (allTareasSprint) => {
         set((state) => ({
             listaSprints: state.listaSprints.map((sprint) => {
-                if (sprint.id === allTareasSprint.id) {
+                if (sprint._id === allTareasSprint._id) {
                     return { ...sprint, tareas: allTareasSprint.tareas };
                 }
                 return sprint;

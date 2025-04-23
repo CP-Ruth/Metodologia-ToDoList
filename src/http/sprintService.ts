@@ -7,7 +7,6 @@ const API_URLS = "http://localhost:3000/sprints";
 export const getListaSrintApi = async (): Promise<ISprint[]> => {
     try {
         const response = await axios.get<ISprint[]>(API_URLS);
-        console.log(response.data)
         return response.data;
     } catch (error) {
         console.error("Error al obtener los sprint:", error);
@@ -16,7 +15,7 @@ export const getListaSrintApi = async (): Promise<ISprint[]> => {
 }
 
 // Función para agregar un nuevo sprint
-export const addSprintApi = async (newSprint: Omit<ISprint, 'id'>) => {
+export const addSprintApi = async (newSprint: Omit<ISprint, '_id'>) => {
     try {
         const response = await axios.post<ISprint>(API_URLS, newSprint);
         return response.data;

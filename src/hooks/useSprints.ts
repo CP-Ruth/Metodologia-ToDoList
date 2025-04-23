@@ -33,7 +33,7 @@ export const useSprints = () => {
 
     const modificarSprint = async (sprint: ISprint) => {
         try {
-            const editarSprint = await editSprintgApi(sprint.id, sprint);
+            const editarSprint = await editSprintgApi(sprint._id!, sprint);
             if(editarSprint){ editSprint(editarSprint)}
         } catch (error) {
             console.error('Error al editar el sprint:', error);
@@ -50,7 +50,7 @@ export const useSprints = () => {
     };
 
     const getSprintById = (id: string) => {
-        const sprint = listaSprints.find((sprint) => sprint.id === id); 
+        const sprint = listaSprints.find((sprint) => sprint._id === id); 
         if (!sprint) {
             throw new Error(`Sprint con ID ${id} no encontrado.`);
         }

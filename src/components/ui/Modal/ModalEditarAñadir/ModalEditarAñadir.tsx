@@ -21,7 +21,7 @@ const initialStateTarea: ITarea = {
 };
 
 const initialStateSprint: ISprint = {
-    id: "",
+    _id: "",
     nombre: "",
     fechaInicio: "",
     fechaCierre: "",
@@ -56,8 +56,8 @@ export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData
                 await getTodasTareasBacklog();
             } else if (type === "sprint") {
                 const sprint = dataForm as ISprint;
-                if (!sprint.id) {
-                    await crearSprint({ ...sprint, id: new Date().toISOString(), tareas: [] });
+                if (!sprint._id) {
+                    await crearSprint({ ...sprint });
                     await Swal.fire("¡Sprint creado!", "El sprint fue creado correctamente ✅", "success");
                 } else {
                     await modificarSprint(sprint);
