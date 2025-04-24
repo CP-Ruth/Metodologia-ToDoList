@@ -13,7 +13,7 @@ type ModalEditarAñadirProps = {
 };
 
 const initialStateTarea: ITarea = {
-    _id: "",
+    id: "",
     titulo: "",
     descripcion: "",
     fechaLimite: "",
@@ -21,7 +21,7 @@ const initialStateTarea: ITarea = {
 };
 
 const initialStateSprint: ISprint = {
-    _id: "",
+    id: "",
     nombre: "",
     fechaInicio: "",
     fechaCierre: "",
@@ -29,7 +29,7 @@ const initialStateSprint: ISprint = {
 };
 
 export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData, handleCloseModal }) => {
-    const { crearTareaParaBacklog, modificarTareaDelBacklog, getTodasTareasBacklog } = useTareas();
+    const { añadirTareaAlBacklog, modificarTareaDelBacklog, getTodasTareasBacklog } = useTareas();
     const { crearSprint, modificarSprint, getTodosLosSprint } = useSprints();
 
     const [dataForm, setDataForm] = useState<ITarea | ISprint>(
@@ -46,8 +46,8 @@ export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData
         try {
             if (type === "tarea") {
                 const tarea = dataForm as ITarea;
-                if (!tarea._id) {
-                    await crearTareaParaBacklog(tarea);
+                if (!tarea.id) {
+                    await añadirTareaAlBacklog(tarea);
                     await Swal.fire("¡Creado!", "La tarea fue creada con éxito ✅", "success");
                 } else {
                     await modificarTareaDelBacklog(tarea);
@@ -56,7 +56,7 @@ export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData
                 await getTodasTareasBacklog();
             } else if (type === "sprint") {
                 const sprint = dataForm as ISprint;
-                if (!sprint._id) {
+                if (!sprint.id) {
                     await crearSprint({ ...sprint });
                     await Swal.fire("¡Sprint creado!", "El sprint fue creado correctamente ✅", "success");
                 } else {

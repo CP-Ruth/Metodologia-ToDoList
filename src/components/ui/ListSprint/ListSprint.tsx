@@ -36,7 +36,7 @@ export const ListSprint = () => {
       <div className={styles.containerPrincipal}>
 
         {listaSprints.length>0?(
-          listaSprints.map((sp)=> <ItemSprint sprint={sp} handleOpenModalVer= {handleOpenModalVer} handleOpenModalEdit={handleOpenModalEdit} />)
+          listaSprints.map((sp)=> <ItemSprint  key={sp.id} sprint={sp} handleOpenModalVer= {handleOpenModalVer} handleOpenModalEdit={handleOpenModalEdit} />)
         ):(
           <p>No hay Sprints</p>
         )}

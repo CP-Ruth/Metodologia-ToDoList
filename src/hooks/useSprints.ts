@@ -1,9 +1,10 @@
-import { useShallow } from "zustand/shallow"
-import { storeSprintListaSlice } from "../store/sprintSlice"
-import { addSprintApi, addTaskToSprintApi, deleteSprintApi, editSprintgApi, getListaSrintApi, removeTaskFromSprintApi } from "../http/sprintService";
+import { storeSprintSlice } from "../store/sprintSlice";
+import { v4 as uuidv4 } from 'uuid';
+import { addSprintApi, addTareaAlSprintApi, deleteSprintApi, editSprintApi, editTareaSprintApi, getListaSprintApi, removeTareaDelSprintApi } from "../http/sprintService";
 import { ISprint } from "../types/ISprint";
 import { storeBacklogTareasSlice } from "../store/tareasSlice";
-import { addTareaAlBacklogApi } from "../http/taskService";
+import { addTareaBacklogApi } from "../http/taskService";
+import { ITarea } from "../types/ITarea";
 
 export const useSprints = () => {
     const {
@@ -12,18 +13,18 @@ export const useSprints = () => {
         addSprint,
         editSprint,
         deleteSprint,
-        //setAllTareasSprint
-    } = storeSprintListaSlice(useShallow((state) => ({ ...state })));
+        addTareaAlSprint,
+        editTareaDelSprint,
+        removeTareaDelSprint,
+    } = storeSprintSlice();
 
     const {
-        backlogTareas,
-        addTareaAlBacklog,
-        deleteTareaDelBacklog
-    } = storeBacklogTareasSlice(useShallow((state) => ({ ...state })));
+        addTareaAlBacklog
+    } = storeBacklogTareasSlice();
 
     const getTodosLosSprint = async () => {
         try {
-            const todosLosSprint = await getListaSrintApi();
+            const todosLosSprint = await getListaSprintApi();
             if (todosLosSprint) { setAllSprint(todosLosSprint); }
         } catch (error) {
             console.error("Error al obtener sprint:", error);
@@ -32,7 +33,9 @@ export const useSprints = () => {
 
     const crearSprint = async (newSprint: ISprint) => {
         try {
-            const añadirSprint = await addSprintApi(newSprint);
+            const idNuevo = uuidv4();
+            const newSprintConId = {...newSprint, id: idNuevo}
+            const añadirSprint = await addSprintApi(newSprintConId);
             if (añadirSprint) { addSprint(añadirSprint) }
         } catch (error) {
             console.error('Error al agregar un sprint:', error);
@@ -41,14 +44,14 @@ export const useSprints = () => {
 
     const modificarSprint = async (sprint: ISprint) => {
         try {
-            const editarSprint = await editSprintgApi(sprint._id!, sprint);
-            if(editarSprint){ editSprint(editarSprint)}
+            const editarSprint = await editSprintApi(sprint.id!, sprint);
+            if (editarSprint) { editSprint(editarSprint) }
         } catch (error) {
             console.error('Error al editar el sprint:', error);
         }
     };
 
-    const eliminarSprint = async (idSprint:string) => {
+    const eliminarSprint = async (idSprint: string) => {
         try {
             await deleteSprintApi(idSprint);
             deleteSprint(idSprint);
@@ -57,38 +60,56 @@ export const useSprints = () => {
         }
     };
 
-    const getSprintById = (id: string) => {
-        const sprint = listaSprints.find((sprint) => sprint._id === id); 
-        if (!sprint) {
-            throw new Error(`Sprint con ID ${id} no encontrado.`);
+    const getSprintById = async () => {
+        try {
+
+        } catch (error) {
+
         }
-        return sprint;
     }
 
-    const addTareaAlSprint = async (idSprint: string , idTarea: string) => {
+    const añadirTareaAlSprint = async (idSprint: string, tarea: ITarea) => {
         try {
-            const sprintActualizado = await addTaskToSprintApi(idSprint,idTarea);
-            if(sprintActualizado){
-                editSprint(sprintActualizado);
-                deleteTareaDelBacklog(idTarea);
-            }
+            await addTareaAlSprintApi(idSprint, tarea);
+            addTareaAlSprint(idSprint, tarea);
         } catch (error) {
             console.error('Error al agregar tarea al sprint:', error);
         }
     };
 
-    const removeTareaDelSprint = async (idSprint: string , idTarea: string) => {
+    const modificarTareaDelSprint = async (sprintId: string, updatedTarea: ITarea) => {
         try {
-            
-            const sprintActualizado = await removeTaskFromSprintApi(idSprint,idTarea);
-            if(sprintActualizado){
-                editSprint(sprintActualizado);
-                addTareaAlBacklogApi();
-            }
+            const editTarea = await editTareaSprintApi(sprintId, updatedTarea);
+            if (editTarea) { editTareaDelSprint(sprintId, updatedTarea) }
+        } catch (error) {
+            console.error('Error al editar tarea del sprint:', error);
+        }
+    }
+
+    const eliminarTareaDelSprint = async (idSprint: string, idTarea: string) => {
+        try {
+
+            await removeTareaDelSprintApi(idSprint, idTarea);
+            removeTareaDelSprint(idSprint, idTarea);
         } catch (error) {
             console.error('Error al remover tarea del sprint:', error);
         }
-    }
+    };
+
+    // Añado tarea al backlog  y despues lo elimino del sprint
+    const moverTareaAlBacklog = async (tarea: ITarea, sprintId: string) => {
+        try {
+            // añadimos al backlog
+            await addTareaBacklogApi(tarea);
+            addTareaAlBacklog(tarea);
+            //eliminamos del sprint
+            await removeTareaDelSprintApi(sprintId, tarea.id!);
+            removeTareaDelSprint(sprintId, tarea.id!);
+        } catch (error) {
+            console.error("Error al mover tarea al backlog:", error);
+        }
+    };
+
     return {
         listaSprints,
         getTodosLosSprint,
@@ -96,7 +117,9 @@ export const useSprints = () => {
         modificarSprint,
         eliminarSprint,
         getSprintById,
-        addTareaAlSprint,
-        removeTareaDelSprint
+        añadirTareaAlSprint,
+        modificarTareaDelSprint,
+        eliminarTareaDelSprint,
+        moverTareaAlBacklog
     }
 }

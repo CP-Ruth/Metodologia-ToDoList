@@ -52,7 +52,7 @@ export const ItemTarea: FC<ItemTarea> = ({
                     <div className={style.sendSprint}>
                         <select onChange={handleSelectSprint} value={selectedSprint || ''}>
                             <option value="">Seleccionar Sprint</option>
-                            {sprints.map((sp) => (<option key={sp._id} value={sp._id}>{sp.nombre}</option>))}
+                            {sprints.map((sp) => (<option key={sp.id} value={sp.id}>{sp.nombre}</option>))}
                         </select>
                         <button className={style.sendButton}
                             onClick={handleEnviarSprint}
@@ -65,7 +65,7 @@ export const ItemTarea: FC<ItemTarea> = ({
                 )}
                 <button onClick={() => ver(tarea)} style={{ backgroundColor: "#6BB0FF", color: "white", border: "none" }}><IoEyeSharp /></button>
                 <button onClick={() => editar(tarea)} style={{ backgroundColor: "#85C86D", color: "white", border: "none" }}><FaPen /></button>
-                <button onClick={() => eliminar(tarea._id!)} style={{ backgroundColor: "#FF6B6B", color: "white", border: "none" }}><FaTrashAlt /></button>
+                <button onClick={() => eliminar(tarea.id!)} style={{ backgroundColor: "#FF6B6B", color: "white", border: "none" }}><FaTrashAlt /></button>
             </div>
             <div>
                 {enviarBacklog && (

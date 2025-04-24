@@ -16,7 +16,7 @@ interface ItemSprint {
 export const ItemSprint: FC<ItemSprint> = ({ sprint, handleOpenModalVer, handleOpenModalEdit }) => {
     const navigate = useNavigate();
     const verListaTareasDelSprint = () => {
-        navigate(`/sprint/${sprint._id}`);
+        navigate(`/sprint/${sprint.id}`);
     }
     const { eliminarSprint } = useSprints();
 
@@ -52,7 +52,7 @@ export const ItemSprint: FC<ItemSprint> = ({ sprint, handleOpenModalVer, handleO
             <div className={styles.ItemSprint__buttons}>
                 <button onClick={verListaTareasDelSprint} style={{ backgroundColor: "#6BB0FF", color: "white", border: "none" }}><IoEyeSharp /></button>
                 <button onClick={editarSprint} style={{ backgroundColor: "#85C86D", color: "white", border: "none" }}><FaPen /></button>
-                <button onClick={() => { eliminarSprintt(sprint._id!); }} style={{ backgroundColor: "#FF6B6B", color: "white", border: "none" }}><FaTrashAlt /></button>
+                <button onClick={() => { eliminarSprintt(sprint.id!); }} style={{ backgroundColor: "#FF6B6B", color: "white", border: "none" }}><FaTrashAlt /></button>
             </div>
         </div>
     )

@@ -19,7 +19,7 @@ export const ListTareasBacklog = () => {
     useEffect(() => {
         getTodasTareasBacklog();
     }, []);
-
+    console.log("Tareas en el backlog:", backlogTareas);
     const handleOpenModalEdit = (tarea: ITarea) => {
         setSelectedTarea(tarea);
         setOpenModalEdit(true);
@@ -41,7 +41,7 @@ export const ListTareasBacklog = () => {
                 </div>
                 <div className={styles.containerTareas}>
                     {backlogTareas.length > 0 ? (
-                        backlogTareas.map((el) => <ItemTarea tarea={el} sprints={listaSprints} editar={handleOpenModalEdit} ver={handleOpenModalVer}  eliminar={()=> eliminarTareaDelBacklog(el._id!)}/>)
+                        backlogTareas.map((el) => <ItemTarea key={el.id} tarea={el} sprints={listaSprints} editar={handleOpenModalEdit} ver={handleOpenModalVer}  eliminar={()=> eliminarTareaDelBacklog(el.id!)}/>)
                     ) : (
                         <h3>No hay tareas</h3>
                     )}

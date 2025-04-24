@@ -1,51 +1,66 @@
 import axios from "axios";
 import { ITarea } from "../types/ITarea";
 
-const API_URLT = "http://localhost:3000/tasks";
+const API_URL = "http://localhost:3000/backlog";
 
 
-// funcion para obtener una tarea por id
-export const getTaskByIdApi = async (idTarea:string) => {
+// funcion para obtener una tareas del backlog
+export const getTareasBacklogApi = async (): Promise<ITarea[]>=> {
   try {
-    const response = await axios.get<ITarea>(`${API_URLT}/${idTarea}`);
-    return response.data;
+    const response = await axios.get<{ tareas: ITarea[] }>(API_URL);
+        return response.data.tareas;
   } catch (error) {
     console.error("Error al añadir una tarea al backlog:", error);
+    throw error; 
   }
 }
 
-// Función para agregar una nueva tarea 
-export const crearTareaApi = async(newTarea:ITarea) => {
+// Añadir una tarea al backlog
+export const addTareaBacklogApi = async (newTarea: ITarea) => {
   try {
-    //Creo la tarea en Tasks
-    const response = await axios.post<ITarea>(API_URLT, newTarea);
-    return response.data;    
-  } catch (error) {
-    
-    throw error;
-  }
-}
+      // Obtener las tareas actuales
+      const { data: backlog } = await axios.get<{ tareas: ITarea[] }>(API_URL);
 
-// Función para actualizar una tarea existente 
-export const editTareaApi = async(taskId: string, updatedTarea: ITarea) =>{
-  try {
-    const response = await axios.put<ITarea>(`${API_URLT}/${taskId}`, updatedTarea);
-    return response.data;
-  } catch (error) {
-    console.error(`Error al actualizar una tarea (id: ${taskId}) del backlog:`, error);
-    throw error;
-  }
-}
+      // Agregar nueva tarea
+      const updatedTareas = [...backlog.tareas, newTarea];
 
-// Función para eliminar una tarea 
-export const deleteTareaApi = async (taskId: string) => {
-  try {
-    const response = await axios.delete(`${API_URLT}/${taskId}`);
-    return response
+      // Actualizar el array de tareas
+      const response = await axios.put(API_URL, { tareas: updatedTareas });
+      return response.data;
   } catch (error) {
-    console.error(`Error al eliminar una tarea (id: ${taskId}) del backlog:`, error);
-    throw error;
+      console.error("Error al añadir tarea al backlog:", error);
+      throw error;
   }
 };
 
+// Editar una tarea del backlog
+export const editTareaBacklogApi = async (updatedTarea: ITarea) => {
+  try {
+      const { data: backlog } = await axios.get<{ tareas: ITarea[] }>(API_URL);
+
+      const updatedTareas = backlog.tareas.map((tarea) =>
+          tarea.id === updatedTarea.id ? updatedTarea : tarea
+      );
+
+      const response = await axios.put(API_URL, { tareas: updatedTareas });
+      return response.data;
+  } catch (error) {
+      console.error("Error al editar tarea del backlog:", error);
+      throw error;
+  }
+};
+
+// Eliminar una tarea del backlog
+export const deleteTareaDelBacklogApi = async (id: string) => {
+  try {
+      const { data: backlog } = await axios.get<{ tareas: ITarea[] }>(API_URL);
+
+      const updatedTareas = backlog.tareas.filter((tarea) => tarea.id !== id);
+
+      await axios.put(API_URL, { tareas: updatedTareas });
+  } catch (error) {
+      console.error("Error al eliminar tarea del backlog:", error);
+      throw error;
+  }
+};
 
