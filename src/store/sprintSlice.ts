@@ -9,10 +9,9 @@ export interface ISprintListaSlice {
     addSprint: (newSprint: ISprint) => void;
     editSprint: (updatedSprint: ISprint) => void;
     deleteSprint: (idSprint: string) => void;
-    setAllTareasSprint: (allTareasSprint: ISprint) => void;
 }
 
-export const storeSprintListaSlice = create<ISprintListaSlice>((set) => ({
+export const storeSprintSlice = create<ISprintListaSlice>((set) => ({
     listaSprints: [],
     activeSprint: null,
 
@@ -39,15 +38,9 @@ export const storeSprintListaSlice = create<ISprintListaSlice>((set) => ({
         }));
     },
 
-    //Tareasd el sprint
-    setAllTareasSprint: (allTareasSprint) => {
-        set((state) => ({
-            listaSprints: state.listaSprints.map((sprint) => {
-                if (sprint._id === allTareasSprint._id) {
-                    return { ...sprint, tareas: allTareasSprint.tareas };
-                }
-                return sprint;
-            }),
-        }));
-    }
+    //falta
+    
+    
+    
+
 }))

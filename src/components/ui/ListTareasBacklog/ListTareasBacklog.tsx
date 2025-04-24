@@ -6,10 +6,12 @@ import styles from "./ListTareasBacklog.module.css"
 import { ITarea } from "../../../types/ITarea";
 import { ModalEditarAñadir } from "../Modal/ModalEditarAñadir/ModalEditarAñadir";
 import { ModalVer } from "../Modal/ModalVer/ModalVer";
+import { useSprints } from "../../../hooks/useSprints";
 
 export const ListTareasBacklog = () => {
 
     const { backlogTareas, getTodasTareasBacklog, eliminarTareaDelBacklog } = useTareas();
+    const {listaSprints} = useSprints();
     const [openModalVer, setOpenModalVer] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [selectedTarea, setSelectedTarea] = useState<ITarea | null>(null);
@@ -39,7 +41,7 @@ export const ListTareasBacklog = () => {
                 </div>
                 <div className={styles.containerTareas}>
                     {backlogTareas.length > 0 ? (
-                        backlogTareas.map((el) => <ItemTarea tarea={el} editar={handleOpenModalEdit} ver={handleOpenModalVer}  eliminar={()=> eliminarTareaDelBacklog(el._id!)}/>)
+                        backlogTareas.map((el) => <ItemTarea tarea={el} sprints={listaSprints} editar={handleOpenModalEdit} ver={handleOpenModalVer}  eliminar={()=> eliminarTareaDelBacklog(el._id!)}/>)
                     ) : (
                         <h3>No hay tareas</h3>
                     )}

@@ -22,14 +22,18 @@
     border-radius: 50%;
     cursor: pointer; 
 }
-.buttonsAndSelect select{
+
+.sendSprint{
+    display: flex;
+
+}
+.sendSprint select{
     cursor: pointer; 
     padding: 0.2rem;
     border-color: #85C86D;
     color: #85C86D;
 }
-.buttonsAndSelect
-.sendSpring{
+.sendSprint button{
     width: 5vw;
     height: 4vh;
     border-radius: 0%;

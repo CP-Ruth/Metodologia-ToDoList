@@ -1,10 +1,9 @@
 import axios from "axios";
 import { ISprint } from "../types/ISprint";
-import { ITarea } from "../types/ITarea";
 
 const API_URLS = "http://localhost:3000/sprints";
 
-export const getListaSrintApi = async (): Promise<ISprint[]> => {
+export const getListaSprintApi = async (): Promise<ISprint[]> => {
     try {
         const response = await axios.get<ISprint[]>(API_URLS);
         return response.data;
@@ -26,7 +25,7 @@ export const addSprintApi = async (newSprint: Omit<ISprint, '_id'>) => {
 }
 
 // Función para actualizar un sprint existente
-export const editSprintgApi = async (sprintId: string, updatedSprint: ISprint) => {
+export const editSprintApi = async (sprintId: string, updatedSprint: ISprint) => {
     try {
         const response = await axios.put<ISprint>(`${API_URLS}/${sprintId}`, updatedSprint);
         return response.data;
@@ -50,21 +49,26 @@ export const deleteSprintApi = async (sprintId: string) => {
 
 /**--------------------------------------------------------------------------------- */
 
-// Función para obtener las tareas de un sprint específico
-export const getTareasSprintApi = async (sprintId: string): Promise<ITarea[]> => {
+// Función para agregar una tarea a un sprint
+export const addTaskToSprintApi = async (sprintId: string, taskId: string): Promise<ISprint> => {
     try {
-        const response = await axios.get<ISprint>(`${API_URLS}/${sprintId}`);
-        return response.data.tareas;
+        const response = await axios.put<ISprint>(`${API_URLS}/${sprintId}/add-task/${taskId}`);
+        return response.data;
     } catch (error) {
         console.error(`Error al obtener las tareas del sprint (id: ${sprintId}):`, error);
         throw error;
     }
 };
 
-// Función para agregar una tarea a un sprint específico
+// Función para remover una tarea a un sprint y mandarla al backlog
+export const removeTaskFromSprintApi = async (sprintId: string, taskId: string): Promise<ISprint> => {
+    try {
+        const response = await axios.put<ISprint>(`${API_URLS}/${sprintId}/remove-task/${taskId}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Error al obtener las tareas del sprint (id: ${sprintId}):`, error);
+        throw error;
+    }
+};
 
-// Función para editar una tarea de un sprint específico    
 
-// Función para eliminar una tarea de un sprint específico
-
-// Función para editar el estado de una tarea de un sprint específico

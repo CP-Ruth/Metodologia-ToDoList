@@ -1,7 +1,9 @@
 import { useShallow } from "zustand/shallow"
-import { storeSprintListaSlice } from "../store/sprintListaSlice"
-import { addSprintApi, deleteSprintApi, editSprintgApi, getListaSrintApi } from "../http/sprintService";
+import { storeSprintListaSlice } from "../store/sprintSlice"
+import { addSprintApi, addTaskToSprintApi, deleteSprintApi, editSprintgApi, getListaSrintApi, removeTaskFromSprintApi } from "../http/sprintService";
 import { ISprint } from "../types/ISprint";
+import { storeBacklogTareasSlice } from "../store/tareasSlice";
+import { addTareaAlBacklogApi } from "../http/taskService";
 
 export const useSprints = () => {
     const {
@@ -12,6 +14,12 @@ export const useSprints = () => {
         deleteSprint,
         //setAllTareasSprint
     } = storeSprintListaSlice(useShallow((state) => ({ ...state })));
+
+    const {
+        backlogTareas,
+        addTareaAlBacklog,
+        deleteTareaDelBacklog
+    } = storeBacklogTareasSlice(useShallow((state) => ({ ...state })));
 
     const getTodosLosSprint = async () => {
         try {
@@ -57,6 +65,30 @@ export const useSprints = () => {
         return sprint;
     }
 
+    const addTareaAlSprint = async (idSprint: string , idTarea: string) => {
+        try {
+            const sprintActualizado = await addTaskToSprintApi(idSprint,idTarea);
+            if(sprintActualizado){
+                editSprint(sprintActualizado);
+                deleteTareaDelBacklog(idTarea);
+            }
+        } catch (error) {
+            console.error('Error al agregar tarea al sprint:', error);
+        }
+    };
+
+    const removeTareaDelSprint = async (idSprint: string , idTarea: string) => {
+        try {
+            
+            const sprintActualizado = await removeTaskFromSprintApi(idSprint,idTarea);
+            if(sprintActualizado){
+                editSprint(sprintActualizado);
+                addTareaAlBacklogApi();
+            }
+        } catch (error) {
+            console.error('Error al remover tarea del sprint:', error);
+        }
+    }
     return {
         listaSprints,
         getTodosLosSprint,
@@ -64,5 +96,7 @@ export const useSprints = () => {
         modificarSprint,
         eliminarSprint,
         getSprintById,
+        addTareaAlSprint,
+        removeTareaDelSprint
     }
 }

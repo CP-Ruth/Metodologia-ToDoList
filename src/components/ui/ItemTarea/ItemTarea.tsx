@@ -1,15 +1,17 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { ITarea } from "../../../types/ITarea";
 import style from "./ItemTarea.module.css"
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
+import { ISprint } from "../../../types/ISprint";
 
 interface ItemTarea {
     tarea: ITarea;
+    sprints?: ISprint[];
     ver: (tarea: ITarea) => void;
     editar: (tarea: ITarea) => void;
     eliminar: (id: string) => void;
-    enviarSprint?: (tarea: ITarea) => void;
+    enviarSprint?: (tarea: ITarea, sprintId: string) => void;
     enviarBacklog?: (tarea: ITarea) => void;
     cambiarEstado?: (tarea: ITarea) => void;
 }
@@ -17,6 +19,7 @@ interface ItemTarea {
 
 export const ItemTarea: FC<ItemTarea> = ({
     tarea,
+    sprints,
     ver,
     editar,
     eliminar,
@@ -25,6 +28,17 @@ export const ItemTarea: FC<ItemTarea> = ({
     cambiarEstado
 }) => {
 
+    const [selectedSprint, setSelectedSprint] = useState<string | null>(null);
+
+    const handleSelectSprint = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedSprint(event.target.value); // Guardamos el sprint seleccionado
+    }
+
+    const handleEnviarSprint = () => {
+        if (selectedSprint && enviarSprint) {
+            enviarSprint(tarea, selectedSprint); // Enviamos la tarea al sprint seleccionado
+        }
+    }
 
     return (
         <div className={style.ContainerItemTareaBacklog}>
@@ -34,25 +48,35 @@ export const ItemTarea: FC<ItemTarea> = ({
             </div>
 
             <div className={style.buttonsAndSelect}>
-                {enviarSprint && (
-                    <button className={style.sendSprint} onClick={() => enviarSprint(tarea)}>
-                        Enviar
-                    </button>
+                {sprints && (
+                    <div className={style.sendSprint}>
+                        <select onChange={handleSelectSprint} value={selectedSprint || ''}>
+                            <option value="">Seleccionar Sprint</option>
+                            {sprints.map((sp) => (<option key={sp._id} value={sp._id}>{sp.nombre}</option>))}
+                        </select>
+                        <button className={style.sendButton}
+                            onClick={handleEnviarSprint}
+                            disabled={!selectedSprint}
+                        >
+                            Enviar
+                        </button>
+                    </div>
+
                 )}
-                <button onClick={()=> ver(tarea)} style={{ backgroundColor: "#6BB0FF", color: "white", border: "none" }}><IoEyeSharp /></button>
-                <button onClick={()=> editar(tarea)} style={{ backgroundColor: "#85C86D", color: "white", border: "none" }}><FaPen /></button>
-                <button onClick={()=> eliminar(tarea._id!)} style={{ backgroundColor: "#FF6B6B", color: "white", border: "none" }}><FaTrashAlt /></button>
+                <button onClick={() => ver(tarea)} style={{ backgroundColor: "#6BB0FF", color: "white", border: "none" }}><IoEyeSharp /></button>
+                <button onClick={() => editar(tarea)} style={{ backgroundColor: "#85C86D", color: "white", border: "none" }}><FaPen /></button>
+                <button onClick={() => eliminar(tarea._id!)} style={{ backgroundColor: "#FF6B6B", color: "white", border: "none" }}><FaTrashAlt /></button>
             </div>
             <div>
                 {enviarBacklog && (
                     <button className={style.sendBacklog} onClick={() => enviarBacklog(tarea)}>
-                    Enviar al Backlog
-                </button>
+                        Enviar al Backlog
+                    </button>
                 )}
                 {cambiarEstado && (
                     <button className={style.changeState} onClick={() => cambiarEstado(tarea)}>
-                    Enviar
-                </button>
+                        Enviar
+                    </button>
                 )}
             </div>
         </div>

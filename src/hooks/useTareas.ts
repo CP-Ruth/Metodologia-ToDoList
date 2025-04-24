@@ -1,7 +1,7 @@
 import { useShallow } from "zustand/shallow";
 import { addTareaAlBacklogApi, deleteTareaDelBacklogApi, editTareaDelBacklogApi, getBacklogTareas } from "../http/taskService";
 import { ITarea } from "../types/ITarea";
-import { storeBacklogTareasSlice } from "../store/backlogTareasSlice";
+import { storeBacklogTareasSlice } from "../store/tareasSlice";
 
 export const useTareas = () => {
      const {
