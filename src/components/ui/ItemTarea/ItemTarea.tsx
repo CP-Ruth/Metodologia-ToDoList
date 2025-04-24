@@ -4,6 +4,7 @@ import style from "./ItemTarea.module.css"
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { ISprint } from "../../../types/ISprint";
+import { useTareas } from "../../../hooks/useTareas";
 
 interface ItemTarea {
     tarea: ITarea;
@@ -11,7 +12,6 @@ interface ItemTarea {
     ver: (tarea: ITarea) => void;
     editar: (tarea: ITarea) => void;
     eliminar: (id: string) => void;
-    enviarSprint?: (tarea: ITarea, sprintId: string) => void;
     enviarBacklog?: (tarea: ITarea) => void;
     cambiarEstado?: (tarea: ITarea) => void;
 }
@@ -23,20 +23,19 @@ export const ItemTarea: FC<ItemTarea> = ({
     ver,
     editar,
     eliminar,
-    enviarSprint,
     enviarBacklog,
     cambiarEstado
 }) => {
 
     const [selectedSprint, setSelectedSprint] = useState<string | null>(null);
-
+    const {moverTareaAUnSprint} = useTareas();
     const handleSelectSprint = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedSprint(event.target.value); // Guardamos el sprint seleccionado
     }
 
-    const handleEnviarSprint = () => {
-        if (selectedSprint && enviarSprint) {
-            enviarSprint(tarea, selectedSprint); // Enviamos la tarea al sprint seleccionado
+    const handleEnviarSprint =() => {
+        if (selectedSprint) {
+            moverTareaAUnSprint(tarea,selectedSprint );
         }
     }
 
