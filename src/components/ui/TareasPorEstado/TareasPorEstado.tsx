@@ -4,11 +4,13 @@ import style from "./TareasPorEstado.module.css"
 import { ItemTarea } from "../ItemTarea/ItemTarea";
 import { ModalEditarAñadir } from "../Modal/ModalEditarAñadir/ModalEditarAñadir";
 import { ModalVer } from "../Modal/ModalVer/ModalVer";
-import { useTareas } from "../../../hooks/useTareas";
+import { useSprints } from "../../../hooks/useSprints";
+import { ISprint } from "../../../types/ISprint";
 
 interface Estado {
-    estadoTarea: "pendiente" | "en_progreso" | "completada";
+    sprint: ISprint;
     tareas: ITarea[];
+    estadoTarea: "pendiente" | "en_progreso" | "completada";
 }
 
 const titulo = {
@@ -17,39 +19,51 @@ const titulo = {
     completada: "Completada"
 }
 
-export const TareasPorEstado: FC<Estado> = ({ estadoTarea, tareas }) => {
+export const TareasPorEstado: FC<Estado> = ({ sprint, tareas, estadoTarea }) => {
 
-    const tareasPorEstado = tareas.filter((tarea) => tarea.estado === estadoTarea);
     const [openModalVer, setOpenModalVer] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [selectedTarea, setSelectedTarea] = useState<ITarea | null>(null);
-    const {eliminarTareaDelBacklog}= useTareas();
-    
+    const { moverTareaAlBacklog, modificarTareaDelSprint, eliminarTareaDelSprint } = useSprints();
+
+
     //click en ver abre el modal ver
     const handleOpenModalVer = (tarea: ITarea) => {
         setSelectedTarea(tarea);
         setOpenModalVer(true);
     }
-    
+
     //click en editar abre el modal editar/añadir
     const handleOpenModalEdit = (tarea: ITarea) => {
         setSelectedTarea(tarea);
         setOpenModalEdit(true);
     }
 
-    //click en eliminar elimina la tarea
-    //const handleElimar = ()=>{
-      //  eliminarTareaDelBacklog()
-    //}
-
     //click en enviarAlBacklog 
-    const handleEnviarBacklog = (tarea: ITarea)=>{
-        //falta logica
-    }
+    const handleEnviarBacklog = (tarea: ITarea) => {
+        if (!tarea.id) return;
+        moverTareaAlBacklog(tarea, sprint.id!);
+    };
 
-    const handleCAmbiarEstado =  (tarea: ITarea)=>{
-        //falta logica
-    }
+
+    const handleCambiarEstado = (tarea: ITarea) => {
+        if (!tarea.id) return;
+        let nuevoEstado: ITarea["estado"] | null = null;
+
+        if (tarea.estado === "pendiente") {
+            nuevoEstado = "en_progreso";
+        } else if (tarea.estado === "en_progreso") {
+            nuevoEstado = "completada";
+        } else {
+            return;
+        }
+        const tareaActualizada: ITarea = {
+            ...tarea,
+            estado: nuevoEstado
+        };
+
+        modificarTareaDelSprint(sprint.id!, tareaActualizada);
+    };
 
     const handleCloseModalEA = () => { setOpenModalEdit(false) };
     const handleCloseModalV = () => { setOpenModalVer(false) }
@@ -57,22 +71,22 @@ export const TareasPorEstado: FC<Estado> = ({ estadoTarea, tareas }) => {
     return (
         <div className={style.columnaEstado}>
             <h3>{titulo[estadoTarea]}</h3>
-            {tareasPorEstado.length > 0 ? (
-                tareasPorEstado.map((tarea) =>
+            {tareas.length > 0 ? (
+                tareas.map((tarea) =>
                     <ItemTarea
-                    key={tarea.id}
+                        key={tarea.id}
                         tarea={tarea}
                         ver={handleOpenModalVer}
                         editar={handleOpenModalEdit}
-                        eliminar={()=>eliminarTareaDelBacklog(tarea.id!)}
+                        eliminar={() => eliminarTareaDelSprint(sprint.id!, tarea.id!)}
                         enviarBacklog={handleEnviarBacklog}
-                        cambiarEstado={handleCAmbiarEstado}
+                        cambiarEstado={()=> handleCambiarEstado(tarea)}
                     />
                 )
 
             ) : (<p>No hay tareas {titulo[estadoTarea].toLowerCase()}</p>)}
             {openModalEdit && <ModalEditarAñadir type="tarea" editData={selectedTarea} handleCloseModal={handleCloseModalEA} />}
-                        {openModalVer && <ModalVer dataView={selectedTarea} handleCloseModal={handleCloseModalV} />}
+            {openModalVer && <ModalVer dataView={selectedTarea} handleCloseModal={handleCloseModalV} />}
         </div>
     )
 }

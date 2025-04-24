@@ -31,7 +31,7 @@ export const useSprints = () => {
         }
     };
 
-    const obtenerSprintPorId = async (idSprint: string) => {
+    const getSprintPorId = async (idSprint: string) => {
         try {
             const sprint = await getSprintById(idSprint);
             return sprint
@@ -115,7 +115,7 @@ export const useSprints = () => {
     return {
         listaSprints,
         getTodosLosSprint,
-        obtenerSprintPorId,
+        getSprintPorId,
         crearSprint,
         modificarSprint,
         eliminarSprint,

@@ -108,7 +108,7 @@ export const addTareaAlSprintApi = async (sprintId: string, addTarea: ITarea): P
 };
 
 
-// Editar una tarea del backlog
+// Editar una tarea del sprint
 export const editTareaSprintApi = async (sprintId: string, updatedTarea: ITarea) => {
     try {
         const response = await axios.get(API_URLS);

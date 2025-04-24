@@ -9,21 +9,17 @@ import { ISprint } from "../../../types/ISprint";
 export const ListTareasSprint = () => {
   //Leer query param sprint para filtrar y mostrar las tareas del sprint seleccionado.
   const { sprintId } = useParams();
-  const { obtenerSprintPorId } = useSprints();
+  const { getSprintPorId } = useSprints();
 
   const [sprint, setSprint] = useState<ISprint | null>(null);
   useEffect(() => {
+    if (!sprintId) return;
     const fetchSprint = async () => {
-      if (sprintId) {
-        const result = await obtenerSprintPorId(sprintId);
-        if (result) {
-          setSprint(result);
-        }
-      }
+      const result = await getSprintPorId(sprintId);
+      if (result) setSprint(result);
     };
-
     fetchSprint();
-  }, [sprintId]);
+  }, [sprintId, getSprintPorId]);
 
   if (!sprint) return <p>Cargando sprint...</p>;
 
@@ -35,9 +31,9 @@ export const ListTareasSprint = () => {
       </div>
 
       <div className={style.sprintTablero}>
-        <TareasPorEstado estadoTarea="pendiente" tareas={sprint.tareas.filter((t) => t.estado === "pendiente")} />
-        <TareasPorEstado estadoTarea="en_progreso" tareas={sprint.tareas.filter((t) => t.estado === "en_progreso")} />
-        <TareasPorEstado estadoTarea="completada" tareas={sprint.tareas.filter((t) => t.estado === "completada")} />
+        <TareasPorEstado sprint={sprint} tareas={sprint.tareas.filter((t) => t.estado === "pendiente")} estadoTarea="pendiente"/>
+        <TareasPorEstado sprint={sprint} tareas={sprint.tareas.filter((t) => t.estado === "en_progreso")} estadoTarea="en_progreso"/>
+        <TareasPorEstado sprint={sprint} tareas={sprint.tareas.filter((t) => t.estado === "completada")} estadoTarea="completada"/>
       </div>
     </section>
   )

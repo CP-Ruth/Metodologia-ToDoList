@@ -75,7 +75,7 @@ export const ItemTarea: FC<ItemTarea> = ({
                 )}
                 {cambiarEstado && (
                     <button className={style.changeState} onClick={() => cambiarEstado(tarea)}>
-                        Enviar
+                        Cambiar estado
                     </button>
                 )}
             </div>
