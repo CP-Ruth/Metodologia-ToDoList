@@ -1,6 +1,6 @@
 import { storeSprintSlice } from "../store/sprintSlice";
 import { v4 as uuidv4 } from 'uuid';
-import { addSprintApi, addTareaAlSprintApi, deleteSprintApi, editSprintApi, editTareaSprintApi, getListaSprintApi, removeTareaDelSprintApi } from "../http/sprintService";
+import { addSprintApi, addTareaAlSprintApi, deleteSprintApi, editSprintApi, editTareaSprintApi, getListaSprintApi, removeTareaDelSprintApi, getSprintById } from "../http/sprintService";
 import { ISprint } from "../types/ISprint";
 import { storeBacklogTareasSlice } from "../store/tareasSlice";
 import { addTareaBacklogApi } from "../http/taskService";
@@ -27,9 +27,19 @@ export const useSprints = () => {
             const todosLosSprint = await getListaSprintApi();
             if (todosLosSprint) { setAllSprint(todosLosSprint); }
         } catch (error) {
-            console.error("Error al obtener sprint:", error);
+            console.error("Error al obtener los sprints:", error);
         }
     };
+
+    const obtenerSprintPorId = async (idSprint: string) => {
+        try {
+            const sprint = await getSprintById(idSprint);
+            return sprint
+        } catch (error) {
+            console.error("Error al obtener el sprint:", error);
+        }
+    }
+
 
     const crearSprint = async (newSprint: ISprint) => {
         try {
@@ -59,14 +69,6 @@ export const useSprints = () => {
             console.error('Error al eliminar el sprint:', error);
         }
     };
-
-    const getSprintById = async () => {
-        try {
-
-        } catch (error) {
-
-        }
-    }
 
     const añadirTareaAlSprint = async (idSprint: string, tarea: ITarea) => {
         try {
@@ -113,10 +115,10 @@ export const useSprints = () => {
     return {
         listaSprints,
         getTodosLosSprint,
+        obtenerSprintPorId,
         crearSprint,
         modificarSprint,
         eliminarSprint,
-        getSprintById,
         añadirTareaAlSprint,
         modificarTareaDelSprint,
         eliminarTareaDelSprint,

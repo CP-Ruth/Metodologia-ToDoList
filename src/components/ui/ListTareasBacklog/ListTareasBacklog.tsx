@@ -19,7 +19,7 @@ export const ListTareasBacklog = () => {
     useEffect(() => {
         getTodasTareasBacklog();
     }, []);
-    console.log("Tareas en el backlog:", backlogTareas);
+    
     const handleOpenModalEdit = (tarea: ITarea) => {
         setSelectedTarea(tarea);
         setOpenModalEdit(true);

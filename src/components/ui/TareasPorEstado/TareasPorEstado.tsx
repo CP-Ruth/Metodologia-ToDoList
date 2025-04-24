@@ -60,11 +60,11 @@ export const TareasPorEstado: FC<Estado> = ({ estadoTarea, tareas }) => {
             {tareasPorEstado.length > 0 ? (
                 tareasPorEstado.map((tarea) =>
                     <ItemTarea
-                    key={tarea._id}
+                    key={tarea.id}
                         tarea={tarea}
                         ver={handleOpenModalVer}
                         editar={handleOpenModalEdit}
-                        eliminar={()=>eliminarTareaDelBacklog(tarea._id!)}
+                        eliminar={()=>eliminarTareaDelBacklog(tarea.id!)}
                         enviarBacklog={handleEnviarBacklog}
                         cambiarEstado={handleCAmbiarEstado}
                     />

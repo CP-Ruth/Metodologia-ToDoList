@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ISprint } from "../types/ISprint";
 import { ITarea } from "../types/ITarea";
-import { promises } from "dns";
 
 const API_URLS = "http://localhost:3000/sprintList";
 
@@ -19,8 +18,9 @@ export const getListaSprintApi = async (): Promise<ISprint[]> => {
 // Obtener un sprint por ID
 export const getSprintById = async (idSprint: string): Promise<ISprint> => {
     try {
-        const response = await axios.get<ISprint>(`${API_URLS}/${idSprint}`);
-        return response.data;
+        const response = await axios.get(API_URLS); // obtiene el objeto completo
+        const sprintList = response.data.sprints;
+        return sprintList.find((sp: ISprint) => sp.id === idSprint);
     } catch (error) {
         console.error("Error al obtener el sprint:", error);
         throw error;
