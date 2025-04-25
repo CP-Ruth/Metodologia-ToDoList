@@ -50,9 +50,9 @@ export const ItemSprint: FC<ItemSprint> = ({ sprint, handleOpenModalVer, handleO
                 </div>
             </div>
             <div className={styles.ItemSprint__buttons}>
-                <button onClick={verListaTareasDelSprint} style={{ backgroundColor: "#6BB0FF", color: "white", border: "none" }}><IoEyeSharp /></button>
-                <button onClick={editarSprint} style={{ backgroundColor: "#85C86D", color: "white", border: "none" }}><FaPen /></button>
-                <button onClick={() => { eliminarSprintt(sprint.id!); }} style={{ backgroundColor: "#FF6B6B", color: "white", border: "none" }}><FaTrashAlt /></button>
+                <button onClick={verListaTareasDelSprint} style={{ backgroundColor: "#6BB0FF" }}><IoEyeSharp /></button>
+                <button onClick={editarSprint} style={{ backgroundColor: "#85C86D" }}><FaPen /></button>
+                <button onClick={() => { eliminarSprintt(sprint.id!); }} style={{ backgroundColor: "#FF6B6B" }}><FaTrashAlt /></button>
             </div>
         </div>
     )

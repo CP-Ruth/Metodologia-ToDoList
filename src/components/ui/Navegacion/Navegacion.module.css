@@ -20,6 +20,7 @@
     justify-content: center;
     align-items: center; 
     gap: 10px;
+    cursor: pointer;
 }
 
 .buttonBacklog:hover{
@@ -55,4 +56,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+}
+
+.buttonAddSpring:hover{
+    background-color: rgba(202, 131, 50);
 }

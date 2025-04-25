@@ -26,4 +26,7 @@ border-radius: 0.4rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    color:white;
+    border: none;
+    cursor: pointer;
 }
