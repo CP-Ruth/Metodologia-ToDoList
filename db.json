@@ -2,17 +2,10 @@
   "backlog": {
     "tareas": [
       {
-        "id": "4c97be24-d61e-4929-b124-1e94f4c2f6c1",
-        "titulo": "Tarea 33",
+        "id": "ffcf6341-b1c9-41db-9335-1937901cf5a2",
+        "titulo": "Tarea 4",
         "descripcion": "Despertar temprano",
-        "fechaLimite": "2025-04-23",
-        "estado": "pendiente"
-      },
-      {
-        "id": "986d80cc-8fad-4348-bad5-d47977ecdf04",
-        "titulo": "Tarea 25",
-        "descripcion": "Despertar temprano",
-        "fechaLimite": "2025-05-02",
+        "fechaLimite": "2025-04-30",
         "estado": "pendiente"
       }
     ]
@@ -26,11 +19,11 @@
         "nombre": "Sprint 123",
         "tareas": [
           {
-            "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
-            "titulo": "Tarea backlog",
-            "descripcion": "Descripcion tarea backlog",
-            "estado": "completada",
-            "fechaLimite": "2025-03-05"
+            "id": "4f2d2753-83d9-4410-b009-6d54c67d031b",
+            "titulo": "Tarea 3",
+            "descripcion": "Limpiar todas las carpetas",
+            "fechaLimite": "2025-05-08",
+            "estado": "completada"
           }
         ]
       },
@@ -39,15 +32,7 @@
         "nombre": "Sprint 3",
         "fechaInicio": "2025-05-01",
         "fechaCierre": "2025-05-11",
-        "tareas": [
-          {
-            "id": "50699dec-3d1a-45ff-a94d-82d416eac053",
-            "titulo": "Tarea 2",
-            "descripcion": "Estamos aca",
-            "estado": "completada",
-            "fechaLimite": "2025-03-06"
-          }
-        ]
+        "tareas": []
       }
     ]
   }
