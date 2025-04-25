@@ -11,7 +11,7 @@ import { useSprints } from "../../../hooks/useSprints";
 export const ListTareasBacklog = () => {
 
     const { backlogTareas, getTodasTareasBacklog, eliminarTareaDelBacklog } = useTareas();
-    const {listaSprints} = useSprints();
+    const { listaSprints } = useSprints();
     const [openModalVer, setOpenModalVer] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [selectedTarea, setSelectedTarea] = useState<ITarea | null>(null);
@@ -19,7 +19,7 @@ export const ListTareasBacklog = () => {
     useEffect(() => {
         getTodasTareasBacklog();
     }, []);
-    
+
     const handleOpenModalEdit = (tarea: ITarea) => {
         setSelectedTarea(tarea);
         setOpenModalEdit(true);
@@ -41,7 +41,14 @@ export const ListTareasBacklog = () => {
                 </div>
                 <div className={styles.containerTareas}>
                     {backlogTareas.length > 0 ? (
-                        backlogTareas.map((el) => <ItemTarea key={el.id} tarea={el} sprints={listaSprints} editar={handleOpenModalEdit} ver={handleOpenModalVer}  eliminar={()=> eliminarTareaDelBacklog(el.id!)}/>)
+                        backlogTareas.map((el) =>
+                            <ItemTarea
+                                key={el.id}
+                                tarea={el}
+                                sprints={listaSprints}
+                                editar={handleOpenModalEdit}
+                                ver={handleOpenModalVer}
+                                eliminar={() => eliminarTareaDelBacklog(el.id!)} />)
                     ) : (
                         <h3>No hay tareas</h3>
                     )}
