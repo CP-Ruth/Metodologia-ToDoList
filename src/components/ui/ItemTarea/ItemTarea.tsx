@@ -143,7 +143,7 @@ export const ItemTarea: FC<ItemTarea> = ({ tarea, sprints, sprintId }) => {
                     </button>
                 </div>
             )}
-            {openModalEdit && <ModalEditarAñadir type="tarea" editData={selectedTarea} handleCloseModal={handleCloseModalEA} />}
+            {openModalEdit && <ModalEditarAñadir type="tarea" editData={selectedTarea} handleCloseModal={handleCloseModalEA} idSprint={sprintId} />}
             {openModalVer && <ModalVer dataView={selectedTarea} handleCloseModal={handleCloseModalV} />}
         </div>
 

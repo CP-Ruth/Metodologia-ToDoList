@@ -89,7 +89,7 @@ export const deleteSprintApi = async (sprintId: string) => {
 }
 
 // Agregar una tarea a un sprint
-export const addTareaAlSprintApi = async (sprintId: string, addTarea: ITarea): Promise<ISprint> => {
+export const addTareaAlSprintApi = async (sprintId: string, addTarea: ITarea) => {
     try {
         const response = await axios.get(API_URLS);
         const sprintList = response.data;
@@ -100,7 +100,6 @@ export const addTareaAlSprintApi = async (sprintId: string, addTarea: ITarea): P
 
         await axios.put(API_URLS, { ...sprintList, sprints: updatedSprints });
 
-        return updatedSprints;
     } catch (error) {
         console.error(`Error al agregar tarea al sprint (id: ${sprintId}):`, error);
         throw error;
@@ -109,24 +108,33 @@ export const addTareaAlSprintApi = async (sprintId: string, addTarea: ITarea): P
 
 
 // Editar una tarea del sprint
-export const editTareaSprintApi = async (sprintId: string, updatedTarea: ITarea) => {
+export const editTareaSprintApi = async (sprintId: string, updatedTarea: ITarea): Promise<ISprint> => {
     try {
         const response = await axios.get(API_URLS);
         const sprintList = response.data;
 
         const updatedSprints = sprintList.sprints.map(
-            (sp: ISprint) => sp.id === sprintId ?
-                {
-                    ...sp, tareas: sp.tareas.map(
-                        (t: ITarea) => t.id === updatedTarea.id ? updatedTarea : t)
-                } : sp
+            (sp: ISprint) => {
+                if (sp.id === sprintId) {
+                    const tareaEncontrada = sp.tareas.some(t => t.id === updatedTarea.id);
+                    if (!tareaEncontrada) throw new Error("Tarea no encontrada en el sprint");
+
+                    const updatedTareas = sp.tareas.map((t: ITarea) =>
+                        t.id === updatedTarea.id ? { ...t, ...updatedTarea } : t
+                    );
+                    return { ...sp, tareas: updatedTareas };
+                }
+                return sp;
+            }
         )
 
-        const updatedSprint = updatedSprints.find((s: ISprint) => s.id === sprintId);
+        const updatedSprintList = { ...sprintList, sprints: updatedSprints };
 
-        await axios.put(API_URLS, { ...sprintList, sprints: updatedSprints });
-        
-        return updatedSprint;
+        await axios.put(API_URLS, updatedSprintList);
+
+        const sprintActualizado = updatedSprintList.sprints.find((sp: ISprint) => sp.id === sprintId);
+        if (!sprintActualizado) throw new Error("Sprint actualizado no encontrado");
+        return sprintActualizado;
     } catch (error) {
         console.error("Error al editar tarea en el sprint:", error);
         throw error;

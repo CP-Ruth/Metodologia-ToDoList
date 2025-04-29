@@ -1,6 +1,5 @@
 import { ITarea } from "../types/ITarea";
 import { v4 as uuidv4 } from 'uuid';
-
 import { storeBacklogTareasSlice } from "../store/tareasSlice";
 import { storeSprintSlice } from "../store/sprintSlice";
 import { addTareaBacklogApi, deleteTareaDelBacklogApi, editTareaBacklogApi, getTareasBacklogApi } from "../http/taskService";

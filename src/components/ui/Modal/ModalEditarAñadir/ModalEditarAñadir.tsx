@@ -31,7 +31,7 @@ const initialStateSprint: ISprint = {
 
 export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData, handleCloseModal, idSprint }) => {
     const { añadirTareaAlBacklog, modificarTareaDelBacklog, getTodasTareasBacklog } = useTareas();
-    const { crearSprint, modificarSprint, getTodosLosSprint,añadirTareaAlSprint,modificarTareaDelSprint,getSprintPorId} = useSprints();
+    const { crearSprint, modificarSprint, getTodosLosSprint,añadirTareaAlSprint,modificarTareaDelSprint} = useSprints();
 
     const [dataForm, setDataForm] = useState<ITarea | ISprint>(
         type === "tarea" ? initialStateTarea : initialStateSprint
@@ -50,6 +50,7 @@ export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData
                 //puedo modificar o agregar una tarea desde el backlog o desde la vista de un sprint
                 //si se pasa un "idSprint" significa que estoy añadiendo o editando desde un sprint
                 if(idSprint){
+                    
                     if (!tarea.id) {
                         await añadirTareaAlSprint(idSprint, tarea);
                         await Swal.fire("¡Creado!", "La tarea fue creada con éxito ✅", "success");
@@ -57,7 +58,7 @@ export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData
                         await modificarTareaDelSprint(idSprint,tarea);
                         await Swal.fire("¡Actualizado!", "La tarea fue actualizada correctamente ✏️", "success");
                     }
-                        
+                    await getTodosLosSprint();
                 }else{  //si NO se pasa un "idSprint" significa que estoy añadiendo o editando desde el Backlog
                     if (!tarea.id) {
                         await añadirTareaAlBacklog(tarea);

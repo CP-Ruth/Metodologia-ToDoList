@@ -71,9 +71,11 @@ export const useSprints = () => {
     };
 
     const añadirTareaAlSprint = async (idSprint: string, tarea: ITarea) => {
+        const idNuevo = uuidv4();
+        const newTareaConId = {...tarea, id: idNuevo};
         try {
-            await addTareaAlSprintApi(idSprint, tarea);
-            addTareaAlSprint(idSprint, tarea);
+            await addTareaAlSprintApi(idSprint, newTareaConId);
+            addTareaAlSprint(idSprint, newTareaConId);
         } catch (error) {
             console.error('Error al agregar tarea al sprint:', error);
         }
@@ -81,8 +83,8 @@ export const useSprints = () => {
 
     const modificarTareaDelSprint = async (sprintId: string, updatedTarea: ITarea) => {
         try {
-            const editTarea = await editTareaSprintApi(sprintId, updatedTarea);
-            if (editTarea) { editTareaDelSprint(sprintId, updatedTarea) }
+            const editSprintTarea = await editTareaSprintApi(sprintId, updatedTarea);
+            if (editSprintTarea) { editSprint(editSprintTarea) }
         } catch (error) {
             console.error('Error al editar tarea del sprint:', error);
         }

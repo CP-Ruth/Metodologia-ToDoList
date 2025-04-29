@@ -7,6 +7,7 @@ export interface ISprintListaSlice {
     listaSprints: ISprint[];
     activeSprint: ISprint | null;
     setAllSprint: (allSprint: ISprint[]) => void;
+    getSprint:(sprint:ISprint)=> void;
     addSprint: (newSprint: ISprint) => void;
     editSprint: (updatedSprint: ISprint) => void;
     deleteSprint: (idSprint: string) => void;
@@ -23,6 +24,9 @@ export const storeSprintSlice = create<ISprintListaSlice>((set) => ({
         set({ listaSprints: allSprint })
     },
 
+    getSprint: (sprint) => {
+        set({ activeSprint: sprint})
+    },
     //Añadir un sprint
     addSprint: (newSprint) => {
         set((state) => ({ listaSprints: [...state.listaSprints, newSprint] }))
