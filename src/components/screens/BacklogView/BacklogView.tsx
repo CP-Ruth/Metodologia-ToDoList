@@ -7,11 +7,10 @@ export const BacklogView = () => {
     return (
         <div className={styles.containerBacklog}>
             <Header />
-            <main>
-                <Navegacion />
-                <ListTareasBacklog />
+            <main className={styles.containerMain}>
+            <Navegacion />
+            <ListTareasBacklog />
             </main>
-
         </div>
     )
 }

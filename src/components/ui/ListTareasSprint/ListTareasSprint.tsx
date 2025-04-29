@@ -42,7 +42,7 @@ export const ListTareasSprint = () => {
         <TareasPorEstado sprint={sprint} tareas={sprint.tareas.filter((t) => t.estado === "en_progreso")} estadoTarea="en_progreso" />
         <TareasPorEstado sprint={sprint} tareas={sprint.tareas.filter((t) => t.estado === "completada")} estadoTarea="completada" />
       </div>
-      {openModalEdit && <ModalEditarAñadir type="tarea" editData={selectedTarea} handleCloseModal={handleCloseModalEA} />}
+      {openModalEdit && <ModalEditarAñadir type="tarea" editData={selectedTarea} handleCloseModal={handleCloseModalEA} idSprint={sprintId}/>}
     </section>
   )
 }

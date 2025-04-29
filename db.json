@@ -2,17 +2,17 @@
   "backlog": {
     "tareas": [
       {
-        "id": "4c97be24-d61e-4929-b124-1e94f4c2f6c1",
-        "titulo": "Tarea 33",
-        "descripcion": "Despertar temprano",
-        "fechaLimite": "2025-04-23",
+        "id": "",
+        "titulo": "Tarea 4/4",
+        "descripcion": "Comprar chocolates",
+        "fechaLimite": "2025-05-12",
         "estado": "pendiente"
       },
       {
-        "id": "986d80cc-8fad-4348-bad5-d47977ecdf04",
-        "titulo": "Tarea 25",
-        "descripcion": "Despertar temprano",
-        "fechaLimite": "2025-05-02",
+        "id": "a92a5083-4a85-4022-8aef-24994ce715e4",
+        "titulo": "Tarea 9/9",
+        "descripcion": "Comprar chocolates",
+        "fechaLimite": "2025-05-09",
         "estado": "pendiente"
       }
     ]
@@ -23,20 +23,34 @@
         "id": "b0e3f34b-68c6-49eb-b059-ab251ed81629",
         "fechaInicio": "2025-03-04",
         "fechaCierre": "2025-03-11",
-        "nombre": "Sprint 123",
+        "nombre": "Sprint 12",
         "tareas": [
           {
-            "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
-            "titulo": "Tarea backlog",
-            "descripcion": "Descripcion tarea backlog",
-            "estado": "completada",
-            "fechaLimite": "2025-03-05"
+            "id": "986d80cc-8fad-4348-bad5-d47977ecdf04",
+            "titulo": "Tarea 25",
+            "descripcion": "Despertar temprano",
+            "fechaLimite": "2025-05-02",
+            "estado": "completada"
+          },
+          {
+            "id": "a75f43cf-19eb-489e-9231-558ec5df28ee",
+            "titulo": "Tarea 3/4",
+            "descripcion": "Comprar chocolates",
+            "fechaLimite": "2025-05-02",
+            "estado": "completada"
+          },
+          {
+            "id": "4c97be24-d61e-4929-b124-1e94f4c2f6c1",
+            "titulo": "Tarea 33",
+            "descripcion": "Despertar temprano",
+            "fechaLimite": "2025-04-23",
+            "estado": "pendiente"
           }
         ]
       },
       {
         "id": "a8f496b5-6232-4d0d-9a80-0105582462f9",
-        "nombre": "Sprint 3",
+        "nombre": "Sprint 4",
         "fechaInicio": "2025-05-01",
         "fechaCierre": "2025-05-11",
         "tareas": [

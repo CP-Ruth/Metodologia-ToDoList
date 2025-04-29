@@ -7,8 +7,8 @@ export const SprintView = () => {
 
   return (
     <div className={styles.containerSprint}>
-      <Header />
-      <main>
+        <Header />
+      <main className={styles.containerMain}>
         <Navegacion />
         <ListTareasSprint />
       </main>

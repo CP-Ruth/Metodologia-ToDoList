@@ -10,6 +10,7 @@ type ModalEditarAñadirProps = {
     type: "tarea" | "sprint";
     editData: ITarea | ISprint | null;
     handleCloseModal: () => void;
+    idSprint?: string;
 };
 
 const initialStateTarea: ITarea = {
@@ -28,9 +29,9 @@ const initialStateSprint: ISprint = {
     tareas: [],
 };
 
-export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData, handleCloseModal }) => {
+export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData, handleCloseModal, idSprint }) => {
     const { añadirTareaAlBacklog, modificarTareaDelBacklog, getTodasTareasBacklog } = useTareas();
-    const { crearSprint, modificarSprint, getTodosLosSprint } = useSprints();
+    const { crearSprint, modificarSprint, getTodosLosSprint,añadirTareaAlSprint,modificarTareaDelSprint,getSprintPorId} = useSprints();
 
     const [dataForm, setDataForm] = useState<ITarea | ISprint>(
         type === "tarea" ? initialStateTarea : initialStateSprint
@@ -46,14 +47,28 @@ export const ModalEditarAñadir: FC<ModalEditarAñadirProps> = ({ type, editData
         try {
             if (type === "tarea") {
                 const tarea = dataForm as ITarea;
-                if (!tarea.id) {
-                    await añadirTareaAlBacklog(tarea);
-                    await Swal.fire("¡Creado!", "La tarea fue creada con éxito ✅", "success");
-                } else {
-                    await modificarTareaDelBacklog(tarea);
-                    await Swal.fire("¡Actualizado!", "La tarea fue actualizada correctamente ✏️", "success");
+                //puedo modificar o agregar una tarea desde el backlog o desde la vista de un sprint
+                //si se pasa un "idSprint" significa que estoy añadiendo o editando desde un sprint
+                if(idSprint){
+                    if (!tarea.id) {
+                        await añadirTareaAlSprint(idSprint, tarea);
+                        await Swal.fire("¡Creado!", "La tarea fue creada con éxito ✅", "success");
+                    } else {
+                        await modificarTareaDelSprint(idSprint,tarea);
+                        await Swal.fire("¡Actualizado!", "La tarea fue actualizada correctamente ✏️", "success");
+                    }
+                        
+                }else{  //si NO se pasa un "idSprint" significa que estoy añadiendo o editando desde el Backlog
+                    if (!tarea.id) {
+                        await añadirTareaAlBacklog(tarea);
+                        await Swal.fire("¡Creado!", "La tarea fue creada con éxito ✅", "success");
+                    } else {
+                        await modificarTareaDelBacklog(tarea);
+                        await Swal.fire("¡Actualizado!", "La tarea fue actualizada correctamente ✏️", "success");
+                    }
+                    await getTodasTareasBacklog();
                 }
-                await getTodasTareasBacklog();
+
             } else if (type === "sprint") {
                 const sprint = dataForm as ISprint;
                 if (!sprint.id) {
