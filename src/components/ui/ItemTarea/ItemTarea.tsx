@@ -107,8 +107,10 @@ export const ItemTarea: FC<ItemTarea> = ({ tarea, sprints, sprintId }) => {
 
 
     return (
-        <div className={style.ContainerItemTareaBacklog}>
-            <div>
+        <div className={style.ContainerItemTarea}>
+            <div className={style.itemTareaPrincipal}>
+
+            <div className={style.itemTareaInfo}>
                 <h4>{tarea.titulo}</h4>
                 <p>Fecha límite:{tarea.fechaLimite}</p>
             </div>
@@ -129,12 +131,16 @@ export const ItemTarea: FC<ItemTarea> = ({ tarea, sprints, sprintId }) => {
                     </div>
 
                 )}
-                <button onClick={() => handleOpenModalVer(tarea)} style={{ backgroundColor: "#6BB0FF", color: "white", border: "none" }}><IoEyeSharp /></button>
-                <button onClick={() => handleOpenModalEdit(tarea)} style={{ backgroundColor: "#85C86D", color: "white", border: "none" }}><FaPen /></button>
-                <button onClick={() => handleEliminarTarea(tarea)} style={{ backgroundColor: "#FF6B6B", color: "white", border: "none" }}><FaTrashAlt /></button>
+                </div>
+                <div className={style.buttonsViewEditDelete}>
+                    <button onClick={() => handleOpenModalVer(tarea)} style={{ backgroundColor: "#6BB0FF"}}><IoEyeSharp /></button>
+                    <button onClick={() => handleOpenModalEdit(tarea)} style={{ backgroundColor: "#85C86D"}}><FaPen /></button>
+                    <button onClick={() => handleEliminarTarea(tarea)} style={{ backgroundColor: "#FF6B6B"}}><FaTrashAlt /></button>
+                </div>
             </div>
+            
             {sprintId && (
-                <div>
+                <div className={style.sprintSpace} >
                     <button className={style.sendBacklog} onClick={() => handleEnviarAlbacklog(tarea)}>
                         Enviar al Backlog
                     </button>

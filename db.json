@@ -2,20 +2,6 @@
   "backlog": {
     "tareas": [
       {
-        "id": "a92a5083-4a85-4022-8aef-24994ce715e4",
-        "titulo": "Tarea 9/9",
-        "descripcion": "Comprar chocolates",
-        "fechaLimite": "2025-05-09",
-        "estado": "pendiente"
-      },
-      {
-        "id": "4c97be24-d61e-4929-b124-1e94f4c2f6c1",
-        "titulo": "Tarea 33",
-        "descripcion": "Despertar temprano",
-        "fechaLimite": "2025-04-23",
-        "estado": "en_progreso"
-      },
-      {
         "id": "74ba42e6-3716-4bc6-882f-65b9400d875c",
         "titulo": "Tarea 41",
         "descripcion": "Comprar chocolates",
@@ -30,10 +16,10 @@
         "estado": "pendiente"
       },
       {
-        "id": "183e0b9e-494f-4aea-a850-7505ec9f2dde",
-        "titulo": "Pruebaaaaaaa",
-        "descripcion": "12",
-        "fechaLimite": "2025-05-06",
+        "id": "a92a5083-4a85-4022-8aef-24994ce715e4",
+        "titulo": "Tarea 9/9",
+        "descripcion": "Comprar chocolates",
+        "fechaLimite": "2025-05-09",
         "estado": "pendiente"
       }
     ]
@@ -61,11 +47,18 @@
             "estado": "completada"
           },
           {
-            "id": "f861afd3-f23e-4f38-976b-378cf5c4841a",
-            "titulo": "Tarea 30",
-            "descripcion": "Comprar chocolates",
-            "fechaLimite": "2025-05-07",
-            "estado": "pendiente"
+            "id": "183e0b9e-494f-4aea-a850-7505ec9f2dde",
+            "titulo": "Pruebaaaaaaa",
+            "descripcion": "12",
+            "fechaLimite": "2025-05-06",
+            "estado": "completada"
+          },
+          {
+            "id": "4c97be24-d61e-4929-b124-1e94f4c2f6c1",
+            "titulo": "Tarea 33",
+            "descripcion": "Despertar temprano",
+            "fechaLimite": "2025-04-23",
+            "estado": "en_progreso"
           }
         ]
       },
