@@ -79,6 +79,12 @@ export const ItemTarea: FC<ItemTarea> = ({ tarea, sprints, sprintId }) => {
 
     const handleEnviarAlbacklog = (tarea: ITarea) => {
         if (sprintId) {
+            //Reseteamos  el estado de la tarea
+            const tareaActualizada: ITarea = {
+                ...tarea,
+                estado: "pendiente"
+            };
+            modificarTareaDelSprint(sprintId, tareaActualizada)
             moverTareaAlBacklog(tarea, sprintId);
         }
     }
@@ -104,37 +110,53 @@ export const ItemTarea: FC<ItemTarea> = ({ tarea, sprints, sprintId }) => {
 
     };
 
+    //tarea próxima a vencer
+    const tareaProximaAVencer = (fechaLimite: string): boolean => {
+        const hoy = new Date();
+        const fechaLimiteDate = new Date(fechaLimite);
+        const diffTime = fechaLimiteDate.getTime() - hoy.getTime();
+        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+        return diffDays >= 0 && diffDays <= 3;
+    };
 
 
     return (
-        <div className={style.ContainerItemTareaBacklog}>
-            <div>
-                <h4>{tarea.titulo}</h4>
-                <p>Fecha límite:{tarea.fechaLimite}</p>
+        <div className={`${style.ContainerItemTarea} ${tareaProximaAVencer(tarea.fechaLimite) ? style.tareafechalimite : ''}`}>
+
+            <div className={style.itemTareaPrincipal}>
+
+                <div className={style.itemTareaInfo}>
+                    <h4>{tarea.titulo}</h4>
+                    <p>Fecha límite:{tarea.fechaLimite}</p>
+                    <p className={`${tareaProximaAVencer(tarea.fechaLimite) ? style.textofechalimite : style.tareaNormal}`} >Tarea porxima a vencer</p>
+                </div>
+
+                <div className={style.buttonsAndSelect}>
+                    {sprints && (
+                        <div className={style.sendSprint}>
+                            <select onChange={handleSelectSprint} value={selectedSprint || ''}>
+                                <option value="">Seleccionar Sprint</option>
+                                {sprints.map((sp) => (<option key={sp.id} value={sp.id}>{sp.nombre}</option>))}
+                            </select>
+                            <button className={style.sendButton}
+                                onClick={handleEnviarSprint}
+                                disabled={!selectedSprint}
+                            >
+                                Enviar
+                            </button>
+                        </div>
+
+                    )}
+                </div>
+                <div className={style.buttonsViewEditDelete}>
+                    <button onClick={() => handleOpenModalVer(tarea)} style={{ backgroundColor: "#6BB0FF" }}><IoEyeSharp /></button>
+                    <button onClick={() => handleOpenModalEdit(tarea)} style={{ backgroundColor: "#85C86D" }}><FaPen /></button>
+                    <button onClick={() => handleEliminarTarea(tarea)} style={{ backgroundColor: "#FF6B6B" }}><FaTrashAlt /></button>
+                </div>
             </div>
 
-            <div className={style.buttonsAndSelect}>
-                {sprints && (
-                    <div className={style.sendSprint}>
-                        <select onChange={handleSelectSprint} value={selectedSprint || ''}>
-                            <option value="">Seleccionar Sprint</option>
-                            {sprints.map((sp) => (<option key={sp.id} value={sp.id}>{sp.nombre}</option>))}
-                        </select>
-                        <button className={style.sendButton}
-                            onClick={handleEnviarSprint}
-                            disabled={!selectedSprint}
-                        >
-                            Enviar
-                        </button>
-                    </div>
-
-                )}
-                <button onClick={() => handleOpenModalVer(tarea)} style={{ backgroundColor: "#6BB0FF", color: "white", border: "none" }}><IoEyeSharp /></button>
-                <button onClick={() => handleOpenModalEdit(tarea)} style={{ backgroundColor: "#85C86D", color: "white", border: "none" }}><FaPen /></button>
-                <button onClick={() => handleEliminarTarea(tarea)} style={{ backgroundColor: "#FF6B6B", color: "white", border: "none" }}><FaTrashAlt /></button>
-            </div>
             {sprintId && (
-                <div>
+                <div className={style.sprintSpace} >
                     <button className={style.sendBacklog} onClick={() => handleEnviarAlbacklog(tarea)}>
                         Enviar al Backlog
                     </button>

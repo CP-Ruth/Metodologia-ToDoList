@@ -14,7 +14,6 @@ export const useSprints = () => {
         editSprint,
         deleteSprint,
         addTareaAlSprint,
-        editTareaDelSprint,
         removeTareaDelSprint,
     } = storeSprintSlice();
 

@@ -31,10 +31,11 @@ export const ListTareasSprint = () => {
   if (!sprint) return <p>Cargando sprint...</p>;
 
   return (
-    <section>
+    <section className={style.sectionSprint}>
+
       <div className={style.sprintHeader}>
         <h2>Tareas del {sprint?.nombre}</h2>
-        <button onClick={() => { setSelectedTarea(null); setOpenModalEdit(true); }}>Crear tarea <MdOutlinePlaylistAdd /></button>
+        <button onClick={() => { setSelectedTarea(null); setOpenModalEdit(true); }} className={style.sprintAddTarea}>Crear tarea <MdOutlinePlaylistAdd /></button>
       </div>
 
       <div className={style.sprintTablero}>

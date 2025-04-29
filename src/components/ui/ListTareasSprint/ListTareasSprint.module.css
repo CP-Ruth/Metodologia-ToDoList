@@ -1,9 +1,39 @@
-.containerSprint{
+.sectionSprint{
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1rem;
+    width: 85vw;
 }
-.containerMain{
+
+.sprintHeader{
     display: flex;
-    flex-direction: row;
-    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+    font-size: 0.8rem;
+}
+
+.sprintAddTarea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(202, 131, 50, 0.5) ;
+    border: none;
+    width: 10vw;
+    height:5vh;
+    border-radius: 10px;
+    color: white;
+    font-size:1rem;
+    gap:0.3rem
+}
+.sprintAddTarea:hover{
+    background-color: rgba(202, 131, 50);
+    cursor: pointer; 
+}
+
+.sprintTablero{
+    display: flex;
+    gap: 1rem; 
+    padding: 0 1rem;
+    height: 70vh;
 }
