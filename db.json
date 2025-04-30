@@ -51,6 +51,13 @@
             "titulo": "Tarea 3",
             "descripcion": "Comprar chocolates",
             "fechaLimite": "2025-04-30",
+            "estado": "en_progreso"
+          },
+          {
+            "id": "9dfa96e7-ac39-41cd-b0a5-ca25184f611e",
+            "titulo": "ir al gym",
+            "descripcion": "ir al gimnasio",
+            "fechaLimite": "2025-04-30",
             "estado": "pendiente"
           }
         ]
